@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loccon/main.dart';
+import 'package:loccon/utils/apptheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -69,12 +70,11 @@ class _IntroScreenState extends State<IntroScreen> {
         child: Container(height: 60,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.grey[200],
-            border: Border.all(color: Colors.black)
+              color:AppTheme.accentColor,
           ),
           alignment: Alignment.center,
           child: Text('Get Started', style: TextStyle(fontSize: 20,
-              color: Colors.black),),
+              color: Colors.white),),
         ),
         onTap: () async {
           SharedPreferences _prefs = await SharedPreferences.getInstance();

@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,13 +21,13 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 SharedPreferences prefs;
-
+FirebaseAnalytics analytics = FirebaseAnalytics();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent));
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
@@ -38,6 +40,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Loccon',
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+
+      ],
       theme: ThemeData(
         fontFamily: "Rubik",
         primaryColor: Colors.white,
@@ -246,7 +252,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/logo_icon.png', height: 34, width: 34,
+                    child: Image.asset('assets/logo_icon.png', height: 50, width: 50,
                       color: _selectedIndex == 0 ?
                           AppTheme.accentColor : Colors.grey,),
                   ),

@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: AppTheme.accentColor,
+    return Scaffold(backgroundColor: AppTheme.accentColorLight,
       body: Container(
         child: Column(
           children: [
@@ -99,9 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Spacer(),
                       _agreementListTile(),
-                      SizedBox(height: 20),
+                      Spacer(),
                       GestureDetector(
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
@@ -115,10 +114,10 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: Alignment.center,
                           child: Row(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/icon_phone.png', height: 25,
+                              Image.asset('assets/icon_phone.png', height: 30,
                                 fit: BoxFit.contain,),
                               SizedBox(width: 16,),
-                              Text('Continue with Phone', style: TextStyle(fontSize: 18),),
+                              Text('Continue with Phone', style: TextStyle(fontSize: 20),),
                             ],
                           ),
                         ),
@@ -146,10 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: Alignment.center,
                           child: Row(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/icon_google.png', height: 25,
+                              Image.asset('assets/icon_google.png', height: 30,
                                 fit: BoxFit.contain,),
                               SizedBox(width: 16,),
-                              Text('Sign In with Google', style: TextStyle(fontSize: 18),),
+                              Text('Sign In with Google', style: TextStyle(fontSize: 20),),
                             ],
                           ),
                         ),
@@ -163,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                       TextButton(
-                        child: Text('Skip Login', style: TextStyle(color: AppTheme.accentColor,fontSize: 16,
+                        child: Text('Skip Login', style: TextStyle(color: AppTheme.accentColor,fontSize: 18,
                             decoration: TextDecoration.underline),),
                         onPressed: () {
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (c) =>
