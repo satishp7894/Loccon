@@ -8,8 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:loccon/pages/chat/chat_page.dart';
 import 'package:loccon/pages/chat/chatroom_page.dart';
 import 'package:loccon/pages/events_page.dart';
+import 'package:loccon/pages/feed/create_page.dart';
 import 'package:loccon/pages/feed/home_page.dart';
 import 'package:loccon/pages/feed/new_create_page.dart';
+import 'package:loccon/pages/feed/new_post.dart';
 import 'package:loccon/pages/login/onboard_page.dart';
 import 'package:loccon/pages/profile/profile_page.dart';
 import 'package:loccon/utils/alerts.dart';
@@ -92,7 +94,7 @@ class _HomeState extends State<Home> {
 
   Route _customRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => NewCreatePage(),
+      pageBuilder: (context, animation, secondaryAnimation) => NewPost(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;

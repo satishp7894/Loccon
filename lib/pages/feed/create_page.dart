@@ -277,259 +277,14 @@ class _CreatePageState extends State<CreatePage> {
     );
   }
 
-  // Widget _backUpView() {
-  //   return SafeArea(
-  //     child: ListView(
-  //       padding: const EdgeInsets.symmetric(horizontal: 12),
-  //       children: <Widget>[
-  //         SizedBox(height: 24,),
-  //         _postView(),
-  //         SizedBox(height: 8,),
-  //         Center(
-  //           child: Text('$_postLimitCounter of 3 Posts Left', style: TextStyle(
-  //             color: AppTheme.accentColor, fontSize: 16,),),
-  //         ),
-  //         SizedBox(height: 5,),
-  //         Divider( color: Colors.black87,),
-  //         SizedBox(height: 15,),
-  //         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: <Widget>[
-  //             Text('Category :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
-  //                 color: Colors.black87),),
-  //             GestureDetector(
-  //               child: Container(
-  //                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(width: 0.8, color: Colors.black87),
-  //                   borderRadius: BorderRadius.circular(8),
-  //                 ),
-  //                 alignment: Alignment.center,
-  //                 child: Text(_category),
-  //               ),
-  //               onTap: () {
-  //                 _showCategoryList(context);
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 15,),
-  //         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: <Widget>[
-  //             Text('Post Type :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
-  //                 color: Colors.black87),),
-  //             GestureDetector(
-  //               child: Container(
-  //                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(width: 0.8, color: Colors.black87),
-  //                   borderRadius: BorderRadius.circular(8),
-  //                 ),
-  //                 alignment: Alignment.center,
-  //                 child: Text(_feedType),
-  //               ),
-  //               onTap: () {
-  //                 _showFeedTypeList(context);
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 25,),
-  //         Row(
-  //           children: <Widget>[
-  //             Flexible(flex: 5,
-  //               child: GestureDetector(
-  //                 child: Container(
-  //                   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.grey.withOpacity(.2),
-  //                     borderRadius: BorderRadius.circular(6),
-  //                   ),
-  //                   alignment: Alignment.center,
-  //                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: <Widget>[
-  //                       Icon(Icons.camera_alt),
-  //                       SizedBox(width: 8,),
-  //                       Text('Images', style: TextStyle(fontSize: 16,
-  //                           fontWeight: FontWeight.w600),),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 onTap: () {
-  //                   if (_youtubeUrlController.text.isNotEmpty) {
-  //                     setState(() {
-  //                       _showImagesGrid = false;
-  //                     });
-  //                   } else {
-  //                     setState(() {
-  //                       _showImagesGrid = true;
-  //                       _pickImages();
-  //                     });
-  //                   }
-  //                 },
-  //               ),
-  //             ),
-  //             SizedBox(width: 25,),
-  //             Flexible(flex: 5,
-  //               child: GestureDetector(
-  //                 child: Container(width: double.infinity,
-  //                   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.grey.withOpacity(.2),
-  //                     borderRadius: BorderRadius.circular(6),
-  //                   ),
-  //                   alignment: Alignment.center,
-  //                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: <Widget>[
-  //                       Icon(Icons.videocam),
-  //                       SizedBox(width: 8,),
-  //                       Text('Video', style: TextStyle(fontSize: 16,
-  //                           fontWeight: FontWeight.w600),),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 onTap: () {
-  //                   if (images == null || images.isEmpty) {
-  //                     setState(() {
-  //                       _showImagesGrid = false;
-  //                     });
-  //                   } else {
-  //                     setState(() {
-  //                       _showImagesGrid = true;
-  //                     });
-  //                   }
-  //                 },
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 15,),
-  //         _showImagesGrid ? _imagesGridView() : _youtubeLinkView(),
-  //         SizedBox(height: 15,),
-  //         TextField(maxLines: 5, maxLength: 500,
-  //           controller: _descriptionController,
-  //           style: TextStyle(color: Colors.black87),
-  //           decoration: InputDecoration(
-  //             hintText: 'Write a Description...',
-  //             border: InputBorder.none,
-  //             focusedBorder: InputBorder.none,
-  //             enabledBorder: InputBorder.none,
-  //             errorBorder: InputBorder.none,
-  //             disabledBorder: InputBorder.none,
-  //             contentPadding: const EdgeInsets.only(left: 15,
-  //                 bottom: 11, top: 11, right: 15),
-  //           ),
-  //         ),
-  //         SizedBox(height: 35,),
-  //         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: <Widget>[
-  //             Text('Tags :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
-  //                 color: Colors.black87),),
-  //             GestureDetector(
-  //               child: Container(
-  //                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(width: 0.8, color: Colors.black87),
-  //                   borderRadius: BorderRadius.circular(8),
-  //                 ),
-  //                 alignment: Alignment.center,
-  //                 child: Text('Add Tag',),
-  //               ),
-  //               onTap: () {
-  //                 _showTagsDialog();
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12,),
-  //         Wrap(
-  //           children: <Widget>[
-  //             for (var i in _tagsList) Container(
-  //               margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-  //               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(20),
-  //                 border: Border.all(width: 0.8, color: Colors.black87),
-  //               ),
-  //               child: Row(mainAxisAlignment: MainAxisAlignment.end,
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: <Widget>[
-  //                   SizedBox(width: 6,),
-  //                   Text('$i', style: TextStyle(fontSize: 18,
-  //                       color: Colors.black87),),
-  //                   SizedBox(width: 4,),
-  //                   GestureDetector(
-  //                     child: Container(
-  //                         padding: const EdgeInsets.all(3),
-  //                         decoration: BoxDecoration(
-  //                           color: AppTheme.accentColor,
-  //                           shape: BoxShape.circle,
-  //                         ),
-  //                         child: Icon(Icons.close, size: 20,
-  //                           color: Colors.white,)),
-  //                     onTap: () {
-  //                       setState(() {
-  //                         _tagsList.remove(i);
-  //                       });
-  //                     },
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
-//   Widget _postView() {
-//     return Row(mainAxisAlignment: MainAxisAlignment.start,
-//       children: <Widget>[
-//         GestureDetector(
-//           child: Container(
-//             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(5),
-//             ),
-//             child: Text('Cancel', style: TextStyle(color: AppTheme.accentColor,
-//                 fontSize: 18, fontWeight: FontWeight.w500),),
-//           ),
-//           onTap: () {
-//             Navigator.of(context).pop();
-//           },
-//         ),
-//         Spacer(),
-//         GestureDetector(
-//           child: Container(
-//             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-//             decoration: BoxDecoration(
-//               color: AppTheme.accentColor,
-//               borderRadius: BorderRadius.circular(5),
-//             ),
-//             child: Text('Post', style: TextStyle(color: Colors.white,
-//                 fontSize: 16),),
-//           ),
-//           onTap: () async {
-//             _addFeed();
-// //             SharedPreferences _prefs = await SharedPreferences.getInstance();
-// //             DateTime now = DateTime.now();
-// //             var _today = DateTime(now.year, now.month, now.day);
-// //             setState(() {
-// //               _postLimitCounter -= 1;
-// //             });
-// //             _prefs.setInt('postLimit', _postLimitCounter);
-//           },
-//         ),
-//       ],
-//     );
-//   }
 
   Widget _youtubeLinkView() {
     return TextField(maxLines: 2,
       controller: _youtubeUrlController,
       style: TextStyle(color: Colors.black87),
       decoration: InputDecoration(
-        hintText: 'Add a youtube link',
+        hintText: 'Paste your youtube video link here',
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
@@ -564,7 +319,7 @@ class _CreatePageState extends State<CreatePage> {
     if (images != null)
       return images.isNotEmpty ? GridView.count(shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         children: List.generate(images.length, (i) {
           Asset asset = images[i];
           return Padding(
@@ -614,52 +369,7 @@ class _CreatePageState extends State<CreatePage> {
       return SizedBox();
   }
 
-  // _showTagsDialog() {
-  //   showDialog(context: context, builder: (c) {
-  //     return Dialog(elevation: 0,
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(8),
-  //       ),
-  //       backgroundColor: Colors.white,
-  //       child: Container(height: 180,
-  //         padding: const EdgeInsets.all(14),
-  //         child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //           children: <Widget>[
-  //             Text('Enter a Tag', style: TextStyle(color: Colors.black87,
-  //               fontWeight: FontWeight.w600, fontSize: 18),),
-  //             SizedBox(height: 12,),
-  //             Theme(data: ThemeData(primaryColor: Colors.black87),
-  //               child: TextField(controller: _tagController,
-  //                 style: TextStyle(color: Colors.black87),
-  //                 textAlign: TextAlign.center,
-  //                 decoration: InputDecoration(hintText: 'Add a Tag',
-  //                   hintStyle: TextStyle(color: Colors.black87),
-  //                   border: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(10),
-  //                     borderSide: BorderSide(color: Colors.black87),
-  //                   ),
-  //                   contentPadding: const EdgeInsets.symmetric(vertical: 13,),
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(height: 16,),
-  //             CupertinoButton(color: AppTheme.accentColor,
-  //               child: Text('Submit'),
-  //               onPressed: () {
-  //                 if (_tagController.text.isNotEmpty) {
-  //                   setState(() {
-  //                     _tagsList.add(_tagController.text);
-  //                   });
-  //                 }
-  //                 _tagController.clear();
-  //                 Navigator.of(context).pop();
-  //               }),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
+
 
   _showCategoryList(BuildContext context) {
     showModalBottomSheet(context: context,
@@ -733,6 +443,300 @@ class _CreatePageState extends State<CreatePage> {
       });
   }
 
+
+// _showTagsDialog() {
+//   showDialog(context: context, builder: (c) {
+//     return Dialog(elevation: 0,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       backgroundColor: Colors.white,
+//       child: Container(height: 180,
+//         padding: const EdgeInsets.all(14),
+//         child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           children: <Widget>[
+//             Text('Enter a Tag', style: TextStyle(color: Colors.black87,
+//               fontWeight: FontWeight.w600, fontSize: 18),),
+//             SizedBox(height: 12,),
+//             Theme(data: ThemeData(primaryColor: Colors.black87),
+//               child: TextField(controller: _tagController,
+//                 style: TextStyle(color: Colors.black87),
+//                 textAlign: TextAlign.center,
+//                 decoration: InputDecoration(hintText: 'Add a Tag',
+//                   hintStyle: TextStyle(color: Colors.black87),
+//                   border: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(10),
+//                     borderSide: BorderSide(color: Colors.black87),
+//                   ),
+//                   contentPadding: const EdgeInsets.symmetric(vertical: 13,),
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 16,),
+//             CupertinoButton(color: AppTheme.accentColor,
+//               child: Text('Submit'),
+//               onPressed: () {
+//                 if (_tagController.text.isNotEmpty) {
+//                   setState(() {
+//                     _tagsList.add(_tagController.text);
+//                   });
+//                 }
+//                 _tagController.clear();
+//                 Navigator.of(context).pop();
+//               }),
+//           ],
+//         ),
+//       ),
+//     );
+//   });
+// }
+
+// Widget _backUpView() {
+//   return SafeArea(
+//     child: ListView(
+//       padding: const EdgeInsets.symmetric(horizontal: 12),
+//       children: <Widget>[
+//         SizedBox(height: 24,),
+//         _postView(),
+//         SizedBox(height: 8,),
+//         Center(
+//           child: Text('$_postLimitCounter of 3 Posts Left', style: TextStyle(
+//             color: AppTheme.accentColor, fontSize: 16,),),
+//         ),
+//         SizedBox(height: 5,),
+//         Divider( color: Colors.black87,),
+//         SizedBox(height: 15,),
+//         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             Text('Category :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
+//                 color: Colors.black87),),
+//             GestureDetector(
+//               child: Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(width: 0.8, color: Colors.black87),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 alignment: Alignment.center,
+//                 child: Text(_category),
+//               ),
+//               onTap: () {
+//                 _showCategoryList(context);
+//               },
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 15,),
+//         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             Text('Post Type :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
+//                 color: Colors.black87),),
+//             GestureDetector(
+//               child: Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(width: 0.8, color: Colors.black87),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 alignment: Alignment.center,
+//                 child: Text(_feedType),
+//               ),
+//               onTap: () {
+//                 _showFeedTypeList(context);
+//               },
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 25,),
+//         Row(
+//           children: <Widget>[
+//             Flexible(flex: 5,
+//               child: GestureDetector(
+//                 child: Container(
+//                   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey.withOpacity(.2),
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                   alignment: Alignment.center,
+//                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Icon(Icons.camera_alt),
+//                       SizedBox(width: 8,),
+//                       Text('Images', style: TextStyle(fontSize: 16,
+//                           fontWeight: FontWeight.w600),),
+//                     ],
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   if (_youtubeUrlController.text.isNotEmpty) {
+//                     setState(() {
+//                       _showImagesGrid = false;
+//                     });
+//                   } else {
+//                     setState(() {
+//                       _showImagesGrid = true;
+//                       _pickImages();
+//                     });
+//                   }
+//                 },
+//               ),
+//             ),
+//             SizedBox(width: 25,),
+//             Flexible(flex: 5,
+//               child: GestureDetector(
+//                 child: Container(width: double.infinity,
+//                   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey.withOpacity(.2),
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                   alignment: Alignment.center,
+//                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Icon(Icons.videocam),
+//                       SizedBox(width: 8,),
+//                       Text('Video', style: TextStyle(fontSize: 16,
+//                           fontWeight: FontWeight.w600),),
+//                     ],
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   if (images == null || images.isEmpty) {
+//                     setState(() {
+//                       _showImagesGrid = false;
+//                     });
+//                   } else {
+//                     setState(() {
+//                       _showImagesGrid = true;
+//                     });
+//                   }
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 15,),
+//         _showImagesGrid ? _imagesGridView() : _youtubeLinkView(),
+//         SizedBox(height: 15,),
+//         TextField(maxLines: 5, maxLength: 500,
+//           controller: _descriptionController,
+//           style: TextStyle(color: Colors.black87),
+//           decoration: InputDecoration(
+//             hintText: 'Write a Description...',
+//             border: InputBorder.none,
+//             focusedBorder: InputBorder.none,
+//             enabledBorder: InputBorder.none,
+//             errorBorder: InputBorder.none,
+//             disabledBorder: InputBorder.none,
+//             contentPadding: const EdgeInsets.only(left: 15,
+//                 bottom: 11, top: 11, right: 15),
+//           ),
+//         ),
+//         SizedBox(height: 35,),
+//         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             Text('Tags :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,
+//                 color: Colors.black87),),
+//             GestureDetector(
+//               child: Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(width: 0.8, color: Colors.black87),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 alignment: Alignment.center,
+//                 child: Text('Add Tag',),
+//               ),
+//               onTap: () {
+//                 _showTagsDialog();
+//               },
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 12,),
+//         Wrap(
+//           children: <Widget>[
+//             for (var i in _tagsList) Container(
+//               margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+//               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(20),
+//                 border: Border.all(width: 0.8, color: Colors.black87),
+//               ),
+//               child: Row(mainAxisAlignment: MainAxisAlignment.end,
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: <Widget>[
+//                   SizedBox(width: 6,),
+//                   Text('$i', style: TextStyle(fontSize: 18,
+//                       color: Colors.black87),),
+//                   SizedBox(width: 4,),
+//                   GestureDetector(
+//                     child: Container(
+//                         padding: const EdgeInsets.all(3),
+//                         decoration: BoxDecoration(
+//                           color: AppTheme.accentColor,
+//                           shape: BoxShape.circle,
+//                         ),
+//                         child: Icon(Icons.close, size: 20,
+//                           color: Colors.white,)),
+//                     onTap: () {
+//                       setState(() {
+//                         _tagsList.remove(i);
+//                       });
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     ),
+//   );
+// }
+
+//   Widget _postView() {
+//     return Row(mainAxisAlignment: MainAxisAlignment.start,
+//       children: <Widget>[
+//         GestureDetector(
+//           child: Container(
+//             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(5),
+//             ),
+//             child: Text('Cancel', style: TextStyle(color: AppTheme.accentColor,
+//                 fontSize: 18, fontWeight: FontWeight.w500),),
+//           ),
+//           onTap: () {
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//         Spacer(),
+//         GestureDetector(
+//           child: Container(
+//             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+//             decoration: BoxDecoration(
+//               color: AppTheme.accentColor,
+//               borderRadius: BorderRadius.circular(5),
+//             ),
+//             child: Text('Post', style: TextStyle(color: Colors.white,
+//                 fontSize: 16),),
+//           ),
+//           onTap: () async {
+//             _addFeed();
+// //             SharedPreferences _prefs = await SharedPreferences.getInstance();
+// //             DateTime now = DateTime.now();
+// //             var _today = DateTime(now.year, now.month, now.day);
+// //             setState(() {
+// //               _postLimitCounter -= 1;
+// //             });
+// //             _prefs.setInt('postLimit', _postLimitCounter);
+//           },
+//         ),
+//       ],
+//     );
+//   }
 }
 
 
