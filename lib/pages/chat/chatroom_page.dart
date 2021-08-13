@@ -1,11 +1,11 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loccon/utils/apptheme.dart';
+import 'package:loccon/utils/connection.dart';
 import 'package:loccon/widgets/message_count_view.dart';
 import '../../services/firestore_database.dart';
 import 'chat_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ChatRoomPage extends StatefulWidget {
@@ -19,7 +19,19 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   bool _isDeleteMode = false;
   List<bool> _selectedChatRoom = [];
   String chatRoomId = '';
+  String name, email, mobile, userName, profilePic;
+  SharedPreferences _prefs;
 
+  _updateUserData() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = _prefs.getString('name') ?? '';
+      userName = _prefs.getString('username') ?? '';
+      email = _prefs.getString('email') ?? '';
+      mobile = _prefs.getString('mobile') ?? '';
+      profilePic = _prefs.getString("profilepic") ?? '';
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +41,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         actions: [
           _isDeleteMode ?
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: Icon(Icons.delete,color: Colors.red,),
             onPressed: () {
               if (chatRoomId != '') {
                 FirestoreDatabase.deleteChatRoom(chatRoomId);
@@ -73,7 +85,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20,right: 60),
                       selected: _selectedChatRoom[i],
-                     // leading: CircleAvatar(radius: 45,backgroundColor: Colors.lightBlueAccent,child: Text("${name[0]}",),),
+                     leading: CircleAvatar(radius: 45,backgroundColor: AppTheme.accentColor,child: Image.network(Connection.profilePicPath + '$profilePic'),),
                       title: Text('$name', style: TextStyle(fontWeight: FontWeight.bold),),
                       trailing: MessageCountView(count: s.data.docs[i]['unread'][widget.myId],),
                       onLongPress: () {
@@ -111,7 +123,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                     selectedTileColor: Colors.grey.withOpacity(.4),
                     selectedColor: AppTheme.accentColor,
                     child: ListTile(
-                      leading: CircleAvatar(radius: 45,backgroundColor: AppTheme.accentColor),
+                      leading: CircleAvatar(radius: 45,backgroundColor: Colors.lightBlueAccent,),
                       selected: _selectedChatRoom[i],
                       title: Text('$name'),
                       onLongPress: () {

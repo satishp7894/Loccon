@@ -45,6 +45,8 @@ class _FeedListItemState extends State<FeedListItem> {
     _totalComments = widget.feeds[widget.index].totalComments ?? 0;
   }
 
+  var image;
+
   @override
   Widget build(BuildContext context) {
     // if (widget.feeds[widget.index].report == true) {
@@ -62,9 +64,9 @@ class _FeedListItemState extends State<FeedListItem> {
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(18),
-                    child: FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
+                    child:FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
                       height: 36, width: 36, fit: BoxFit.cover,
-                      image: Connection.profilePicPath + '${widget.feeds[widget.index].profilePic}' ),
+                      image: Connection.profilePicPath + '${widget.feeds[widget.index].profilePic}' ??  'assets/avatar.png' ),
                   ),
                   SizedBox(width: 10,),
                   Column(crossAxisAlignment: CrossAxisAlignment.start,

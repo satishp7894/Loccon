@@ -306,6 +306,8 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
+                ),focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87),
                 ),
               ),
             ),
@@ -323,7 +325,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 8,),
@@ -341,7 +345,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 8,),
@@ -363,7 +369,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 8,),
@@ -381,7 +389,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -412,7 +422,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 8,),
@@ -437,7 +449,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 10,),
@@ -543,7 +557,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 8,),
@@ -564,7 +580,9 @@ class _SignUpPageState extends State<SignUpPage>
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black87),
-                ),
+                ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
               ),
             ),
             SizedBox(height: 10,),
