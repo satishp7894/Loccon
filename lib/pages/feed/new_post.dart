@@ -21,6 +21,8 @@ class NewPost extends StatefulWidget {
 class _NewPostState extends State<NewPost> {
 
 
+
+
   String name, email, mobile, userName, profilePic;
   SharedPreferences _prefs;
   List<Asset> images = <Asset>[];
@@ -81,11 +83,11 @@ class _NewPostState extends State<NewPost> {
       Alerts.showAlertLogin(context);
       return;
     }
-    if (_categoryId == '' || _feedTypeId == '') {
+   else if (_categoryId == '' || _feedTypeId == '') {
       Alerts.showAlert(context, 'Alert', 'Please select category and feed type.');
       return;
     }
-    if (images.isEmpty && _youtubeUrlController.text.isEmpty && _descriptionController.text.isEmpty) {
+   else if (images.isEmpty && _youtubeUrlController.text.isEmpty && _descriptionController.text.isEmpty) {
       Alerts.showAlert(context, 'Alert', 'Please add either images, youtube link or description.');
       return;
     }
@@ -135,6 +137,8 @@ class _NewPostState extends State<NewPost> {
     _addCategoriesAndFeedTypes();
     _userStoredDetails();
   }
+
+
 
   @override
   void dispose() {
@@ -247,9 +251,16 @@ class _NewPostState extends State<NewPost> {
             TextField(maxLines: 5, maxLength: 500,
               controller: _descriptionController,
               cursorColor: Colors.black,
-              style: TextStyle(color: Colors.black87),
+              style: TextStyle(color: Colors.black87,fontSize: 16),
               decoration: InputDecoration(
                 hintText: 'Share a photo, video or text',
+                suffix: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        _descriptionController.clear();
+                      });
+                    },
+                    child: Icon(Icons.clear,color: Colors.red,size: 24,)),
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
@@ -277,7 +288,7 @@ class _NewPostState extends State<NewPost> {
                   }
 
 
-                }, icon: Icon(Icons.camera_alt,color: Colors.blueGrey,)),
+                }, icon: Icon(Icons.photo,color: Colors.blueGrey,size: 30,)),
                 IconButton(onPressed: (){
 
                   if (images == null || images.isEmpty) {
@@ -290,7 +301,7 @@ class _NewPostState extends State<NewPost> {
                     });
                   }
 
-                }, icon: Icon(Icons.video_call_sharp,color: Colors.blueGrey,)),
+                }, icon: Icon(Icons.video_call_sharp,color: Colors.blueGrey,size: 30,)),
 
               ],
             )
@@ -323,9 +334,11 @@ class _NewPostState extends State<NewPost> {
       images = <Asset>[];
     });
 
+
     List<Asset> resultList;
     try {
-      resultList = await MultiImagePicker.pickImages(maxImages: 5,);
+      resultList = await MultiImagePicker.pickImages(maxImages: 5,
+      );
     } on Exception catch (e) {
       print('pick image exception ${e.toString()}');
     }

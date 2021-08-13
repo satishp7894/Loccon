@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loccon/main.dart';
 import 'package:loccon/pages/login/login_page.dart';
 
 
@@ -68,6 +69,7 @@ class Alerts {
       },
     );
   }
+
 
   static showAlertLogin(BuildContext context) {
     showDialog(context: context,
