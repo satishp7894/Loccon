@@ -48,6 +48,7 @@ dependencies:
 
   fluttertoast: ^8.0.8
   firebase_analytics: any
+  material_segmented_control: ^3.1.2
 
 
 dev_dependencies:
@@ -79,6 +80,13 @@ flutter:
     - assets/intro3.jpg
     - assets/icon_google.png
     - assets/icon_phone.png
+    - assets/new_post.png
+    - assets/chat.png
+    - assets/event.png
+    - assets/man.png
+    - assets/user.png
+    - assets/plus.png
+    - assets/calendar.png
   fonts:
     - family: Rubik
       fonts:

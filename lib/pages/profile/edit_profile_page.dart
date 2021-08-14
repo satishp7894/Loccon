@@ -133,8 +133,8 @@ class _EditProfilePageState extends State<EditProfilePage> with Validator {
     var response = await http.post(Connection.updateProfile, body: {
       'user_id': '${_prefs.getString('id')}',
       'user_type': _sharedValue == 0 ? 'Normal' : 'Business',
-      'userName': '${_nameController.text}',
-      'user_name': '${_usernameController.text}',
+      'userName': '${_usernameController.text}',
+      'user_name': '${_nameController.text}',
       'email': '${_emailController.text}',
       'mobile': '${_mobileController.text}',
       'category_id': _sharedValue == 0 ? '' : '$_categoryId',

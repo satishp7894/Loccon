@@ -34,7 +34,8 @@ class _EventsPageState extends State<EventsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false, elevation: 1,
-        title: Text('Events'),
+        title:Text('Events', style: TextStyle(fontSize: 18,
+            fontWeight: FontWeight.w600),),
       ),
       body: StreamBuilder<List<Feed>>(
         stream: _eventsBloc.eventsFeedStream,

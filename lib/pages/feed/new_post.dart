@@ -157,11 +157,12 @@ class _NewPostState extends State<NewPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Share Post"),
+        title: Text("Share Post", style: TextStyle(fontSize: 18,
+            fontWeight: FontWeight.w600),),
         actions: [
           // ignore: deprecated_member_use
-          FlatButton(
-            child: Text('Post', style: TextStyle(color: AppTheme.accentColor, fontSize: 21),),
+          TextButton(
+            child: Text('Post', style: TextStyle(color: AppTheme.accentColor, fontSize: 16),),
             onPressed: () {
               _addFeed();
             },
@@ -176,14 +177,20 @@ class _NewPostState extends State<NewPost> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/avatar.png',
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover,
-                      image: Connection.profilePicPath + '$profilePic'),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: AppTheme.accentColor)
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/avatar.png',
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                        image: Connection.profilePicPath + '$profilePic'?? null),
+                  ),
                 ),
                 SizedBox(width: 10,),
                 Column(
@@ -248,26 +255,31 @@ class _NewPostState extends State<NewPost> {
               ],
             ),
             SizedBox(height: 20,),
-            TextField(maxLines: 5, maxLength: 500,
-              controller: _descriptionController,
-              cursorColor: Colors.black,
-              style: TextStyle(color: Colors.black87,fontSize: 16),
-              decoration: InputDecoration(
-                hintText: 'Share a photo, video or text',
-                suffix: GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        _descriptionController.clear();
-                      });
-                    },
-                    child: Icon(Icons.clear,color: Colors.red,size: 24,)),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                contentPadding: const EdgeInsets.only(left: 15,
-                    bottom: 11, top: 11, right: 15),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey)
+              ),
+              child: TextField(maxLines: 5, maxLength: 500,
+                controller: _descriptionController,
+                cursorColor: Colors.black,
+                style: TextStyle(color: Colors.black87,fontSize: 16),
+                decoration: InputDecoration(
+                  hintText: 'Share a photo, video or text',
+                  suffix: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          _descriptionController.clear();
+                        });
+                      },
+                      child: Icon(Icons.clear,color: Colors.red,size: 24,)),
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  contentPadding: const EdgeInsets.only(left: 15,
+                      bottom: 20,top: 10, right: 15),
+                ),
               ),
             ),
             SizedBox(height: 15,),
@@ -364,7 +376,7 @@ class _NewPostState extends State<NewPost> {
               Stack(
                 children: <Widget>[
                   AssetThumb(asset: asset,
-                      width: 300, height: 300),
+                      width: 500, height: 500,),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(.5),
@@ -384,7 +396,7 @@ class _NewPostState extends State<NewPost> {
                 ],
               ) :
               AssetThumb(asset: asset,
-                  width: 300, height: 300),
+                  width: 500, height: 500),
               onTap: () {
                 setState(() {
                   _selectedImage = null;
@@ -405,6 +417,9 @@ class _NewPostState extends State<NewPost> {
   }
   _showCategoryList(BuildContext context) {
     showModalBottomSheet(context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight:Radius.circular(20) ),
+        ),
         builder: (BuildContext ctx) {
           return SafeArea(
             child: Padding(padding: const EdgeInsets.only(top: 12, left: 16),
@@ -415,6 +430,7 @@ class _NewPostState extends State<NewPost> {
                   SizedBox(height: 10,),
                   Expanded(
                     child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
                         itemCount: _categories.length,
                         itemBuilder: (c, i) {
@@ -441,6 +457,11 @@ class _NewPostState extends State<NewPost> {
 
   _showFeedTypeList(BuildContext context) {
     showModalBottomSheet(context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight:Radius.circular(20) ),
+
+
+        ),
         builder: (BuildContext ctx) {
           return SafeArea(
             child: Padding(padding: const EdgeInsets.only(top: 12, left: 16),

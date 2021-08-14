@@ -128,13 +128,14 @@ class _ProfilePageState extends State<ProfilePage>
                   ],
                 ),
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(250),
+                  preferredSize: Size.fromHeight(200),
                   child: SafeArea(
                     child: ListView(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
                         _profileView(),
+                        SizedBox(height: 20,),
                         editProfileView(),
                         TabBar(
                           controller: _tabController,
@@ -180,50 +181,70 @@ class _ProfilePageState extends State<ProfilePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          /* ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-              child: Image.asset("assets/avatar.png",height: 80,width: 80,)),*/
-          GestureDetector(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(70),
-              child: _imageFile == null
-                  ? FadeInImage.assetNetwork(
-                      placeholder: 'assets/avatar.png',
-                      height: 80,
-                      width: 80,
-                      fit: BoxFit.contain,
-                      image: Connection.profilePicPath + '$profilePic')
-                  : Image.file(_imageFile,
-                      height: 80, width: 80, fit: BoxFit.contain),
-            ),
-            onTap: () {
-              _uploadProfilePicture();
-            },
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            '$name',
-            style: TextStyle(
-                color: AppTheme.accentColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            '$email - $mobile',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(
-            height: 14,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(70),
+                    border: Border.all(color: AppTheme.accentColor)
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: _imageFile == null
+                        ? FadeInImage.assetNetwork(
+                            placeholder: 'assets/avatar.png',
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.contain,
+                            image: Connection.profilePicPath + '$profilePic')
+                        : Image.file(_imageFile,
+                            height: 80, width: 80, fit: BoxFit.contain),
+                  ),
+                ),
+                onTap: () {
+                  _uploadProfilePicture();
+                },
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10,),
+                  Text(
+                    '$name',
+                    style: TextStyle(
+                        color: AppTheme.accentColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Email : $email',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ), Text(
+                    'Contact : $mobile',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

@@ -16,6 +16,7 @@ import 'package:loccon/pages/login/onboard_page.dart';
 import 'package:loccon/pages/profile/profile_page.dart';
 import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
+import 'package:loccon/utils/connection.dart';
 import 'package:loccon/widgets/unread_message_count_bubble.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,8 +79,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  String _name = '', _username = '', _email = '', _mobile = '', _id = '';
+  int _selectedIndex = 2;
+  String _name = '', _username = '', _email = '', _mobile = '', _id = '',profilePic = '';
 
   _getUserInfo() async {
     prefs = await SharedPreferences.getInstance();
@@ -89,6 +90,8 @@ class _HomeState extends State<Home> {
       _username = prefs.getString('username') ?? '';
       _email = prefs.getString('email') ?? '';
       _mobile = prefs.getString('mobile') ?? '';
+      profilePic = prefs.getString("profilepic") ?? '';
+
     });
   }
 
@@ -225,38 +228,28 @@ class _HomeState extends State<Home> {
         }
       },
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          elevation: 3, backgroundColor: Colors.white,
-          child: Icon(Icons.add, size: 30, color: AppTheme.accentColor,),
-          onPressed: () {
-            if (_id == '') {
-              Alerts.showAlertLogin(context);
-              return;
-            }
-            Navigator.push(context, _customRoute());
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
          // body: _pageOptions[_selectedIndex],
         body: IndexedStack(
           index: _selectedIndex,
           children: [
-            HomePage(userId: _id, feedCategoryValue: 0,),
+            NewPost(),
             ChatRoomPage(myId: _id, myUserName: _username),
+            HomePage(userId: _id, feedCategoryValue: 0,),
             EventsPage(userId: _id,),
             ProfilePage(id: _id, name: _name, email: _email, mobile: _mobile),
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-          child: Container(height: 50,
+          child: Container(
+            height: 60,
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/logo_icon.png', height: 50, width: 50,
+                    child: Image.asset('assets/plus.png', height: 30, width: 30,
                       color: _selectedIndex == 0 ?
-                          AppTheme.accentColor : Colors.grey,),
+                      AppTheme.accentColor : Colors.grey,),
                   ),
                   onTap: () {
                     setState(() {
@@ -267,7 +260,7 @@ class _HomeState extends State<Home> {
                 Stack(clipBehavior: Clip.none, children: [
                     GestureDetector(
                       child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Image.asset('assets/msg_icon.png', height: 28, width: 28,
+                        child: Image.asset('assets/chat.png', height: 30, width: 30,
                           color: _selectedIndex == 1 ?
                           AppTheme.accentColor : Colors.grey,),
                       ),
@@ -283,11 +276,10 @@ class _HomeState extends State<Home> {
                       child: UnreadMessageCountBubble(myUserName: _username, myId: _id,)),
                   ],
                 ),
-                SizedBox(width: 50,),
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/events_icon.png', height: 28, width: 28,
+                    child: Image.asset('assets/logo_icon.png',height: 60,width: 60,
                       color: _selectedIndex == 2 ?
                       AppTheme.accentColor : Colors.grey,),
                   ),
@@ -300,7 +292,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/profile_icon.png', height: 28, width: 28,
+                    child: Image.asset('assets/calendar.png', height: 30, width: 30,
                       color: _selectedIndex == 3 ?
                       AppTheme.accentColor : Colors.grey,),
                   ),
@@ -309,6 +301,24 @@ class _HomeState extends State<Home> {
                       _selectedIndex = 3;
                     });
                   },
+                ),
+                GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: GestureDetector(
+                      child: Image.asset('assets/user.png',
+                          height: 30,
+                          width: 30,
+                        color: _selectedIndex == 4 ?
+                        AppTheme.accentColor : Colors.grey,
+                          fit: BoxFit.contain,),
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = 4;
+                        });
+                      },
+                    ),
+                  )
                 ),
               ],
             ),

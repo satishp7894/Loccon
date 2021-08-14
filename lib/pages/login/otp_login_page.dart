@@ -84,6 +84,31 @@ class _OTPLoginPageState extends State<OTPLoginPage> with Validator {
     _otpController.dispose();
   }
 
+
+  String number;
+  String newNumber;
+  hideNumber(){
+     number = "+91${widget.phone}";
+     newNumber= number;
+
+    String replaceCharAt(String oldString, int index, String newChar) {
+      return oldString.substring(0, index) + newChar + oldString.substring(index + 1);
+    }
+
+
+    for(int i=6; i<number.length;i++){
+      newNumber = replaceCharAt(newNumber, i, "*") ;
+      print("PHONE_NUMBER_LOOP:$newNumber");
+
+    }
+
+    print("FinalNumber:$newNumber");
+
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

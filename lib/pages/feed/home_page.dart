@@ -22,15 +22,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final _homeBloc = HomeBloc();
-  int _feedCategoryValue = 0;
+  static int _feedCategoryValue;
   String feedTypeId = '';
 
-  final Map<int, Widget> _titles = <int, Widget>{
-    0: Text('For You'),
-    1: Text('Loccon'),
+  Map<int, Widget> _titles = <int, Widget>{
+    0: Text('For You',style: TextStyle(color:Colors.black,),),
+    1 :Text('Loccon',style: TextStyle(color:Colors.black, ),),
   };
 
-  int _selectedFeedType = 0;
+    static int _selectedFeedType = 0;
 
   @override
   void initState() {
@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
           onValueChanged: (int v) {
             setState(() {
               _feedCategoryValue = v;
+
             });
             if (_feedCategoryValue == 0) {
               _homeBloc.feedCategory.add([FeedCategory.forYou, feedTypeId]);
@@ -127,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                     feedTypeId = s.data[i].id;
                   });
                   if (_feedCategoryValue == 0) {
+
                     _homeBloc.feedCategory.add([FeedCategory.forYou, feedTypeId]);
                   } else {
                     _homeBloc.feedCategory.add([FeedCategory.loccon, feedTypeId]);

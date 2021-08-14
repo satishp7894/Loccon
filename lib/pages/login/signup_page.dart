@@ -105,8 +105,8 @@ class _SignUpPageState extends State<SignUpPage>
       print('interest ${json.encode(_categoryIds)} \n categ $_categoryId \n statte $_stateId \n city $_cityId');
       var response = await http.post(Connection.signUp, body: {
         'user_type': _sharedValue == 0 ? 'Normal' : 'Business',
-        'userName': '${_nameController.text}',
-        'user_name': '${_userNameController.text}',
+        'userName': '${_userNameController.text}',
+        'user_name': '${_nameController.text}',
         'email': '${_emailController.text}',
         'mobile': '${_mobileController.text}',
         'interest': '${json.encode(_categoryIds)}',
