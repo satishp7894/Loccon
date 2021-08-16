@@ -22,7 +22,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   String name, email, mobile, userName, profilePic;
   SharedPreferences _prefs;
 
-  _updateUserData() async {
+  _userStoredDetails() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
       name = _prefs.getString('name') ?? '';
@@ -32,8 +32,18 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       profilePic = _prefs.getString("profilepic") ?? '';
     });
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _userStoredDetails();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(elevation: 1, centerTitle: false,
         title: Text('Messages', style: TextStyle(fontSize: 18,
@@ -85,8 +95,17 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                     child: ListTile(
                       contentPadding: EdgeInsets.only(left: 20,right: 60),
                       selected: _selectedChatRoom[i],
-                     leading: CircleAvatar(radius: 45,backgroundColor: AppTheme.accentColor,child: Image.network(Connection.profilePicPath + '$profilePic'),),
-                      title: Text('$name', style: TextStyle(fontWeight: FontWeight.bold),),
+                     leading: Container(
+                       decoration: BoxDecoration(
+                           borderRadius: BorderRadius.circular(40),
+                           border: Border.all(color: AppTheme.accentColor)
+                       ),
+                       child: ClipRRect(
+                         borderRadius: BorderRadius.circular(40),
+                         child: Image.asset('assets/avatar.png' ?? null),
+                       ),
+                     ),
+                      title: Text('$name', style: TextStyle(fontWeight: FontWeight.bold,),),
                       trailing: MessageCountView(count: s.data.docs[i]['unread'][widget.myId],),
                       onLongPress: () {
                         if (_selectedChatRoom[i] == true) {
@@ -123,7 +142,16 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                     selectedTileColor: Colors.grey.withOpacity(.4),
                     selectedColor: AppTheme.accentColor,
                     child: ListTile(
-                      leading: CircleAvatar(radius: 45,backgroundColor: Colors.lightBlueAccent,),
+                      leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(color: AppTheme.accentColor)
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child:  Image.asset('assets/avatar.png' ?? null),
+                        ),
+                      ),
                       selected: _selectedChatRoom[i],
                       title: Text('$name'),
                       onLongPress: () {

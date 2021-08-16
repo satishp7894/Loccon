@@ -87,6 +87,7 @@ flutter:
     - assets/user.png
     - assets/plus.png
     - assets/calendar.png
+    - assets/double_ring_loading_io.gif
   fonts:
     - family: Rubik
       fonts:

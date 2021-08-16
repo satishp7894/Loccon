@@ -157,46 +157,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       });
   }
 
-  // Widget _backupList() {
-  //   return ListView.builder(reverse: true,
-  //       physics: BouncingScrollPhysics(),
-  //       itemCount: s.data.docs.length,
-  //       itemBuilder: (c, i) {
-  //         _selectedChatItems.add(false);
-  //         return GestureDetector(
-  //           onTap: () {
-  //             if (_selectedChatItems[i] == true) {
-  //               setState(() {
-  //                 _selectedChatItems[i] = false;
-  //                 _selectedChatDocs.remove(s.data.docs[i]);
-  //               });
-  //             } else {
-  //               setState(() {
-  //                 _selectedChatItems[i] = true;
-  //                 _selectedChatDocs.add(s.data.docs[i]);
-  //               });
-  //             }
-  //             if (!_selectedChatItems.contains(true)) {
-  //               setState(() {
-  //                 isDeleteMode = false;
-  //               });
-  //             }
-  //             print('selected ids ${_selectedChatDocs.map((e) => e.id).toList()}');
-  //           },
-  //           onLongPress: () {
-  //             setState(() {
-  //               _selectedChatItems[i] = true;
-  //               isDeleteMode = true;
-  //               _selectedChatDocs.add(s.data.docs[i]);
-  //               print('selected ids ${_selectedChatDocs.map((e) => e.id).toList()}');
-  //             });
-  //           },
-  //           child: MessageTile(message: s.data.docs[i]['message'],
-  //               isSelected: _selectedChatItems[i],
-  //               isSender: s.data.docs[i]['sender'] == widget.myId),
-  //         );
-  //       });
-  // }
+
 
   Widget _sendMessageView() {
     return Padding(padding: const EdgeInsets.all(8),
@@ -296,6 +257,49 @@ class _ChatListViewState extends State<ChatListView> {
         );
       });
   }
+
+
+
+// Widget _backupList() {
+//   return ListView.builder(reverse: true,
+//       physics: BouncingScrollPhysics(),
+//       itemCount: s.data.docs.length,
+//       itemBuilder: (c, i) {
+//         _selectedChatItems.add(false);
+//         return GestureDetector(
+//           onTap: () {
+//             if (_selectedChatItems[i] == true) {
+//               setState(() {
+//                 _selectedChatItems[i] = false;
+//                 _selectedChatDocs.remove(s.data.docs[i]);
+//               });
+//             } else {
+//               setState(() {
+//                 _selectedChatItems[i] = true;
+//                 _selectedChatDocs.add(s.data.docs[i]);
+//               });
+//             }
+//             if (!_selectedChatItems.contains(true)) {
+//               setState(() {
+//                 isDeleteMode = false;
+//               });
+//             }
+//             print('selected ids ${_selectedChatDocs.map((e) => e.id).toList()}');
+//           },
+//           onLongPress: () {
+//             setState(() {
+//               _selectedChatItems[i] = true;
+//               isDeleteMode = true;
+//               _selectedChatDocs.add(s.data.docs[i]);
+//               print('selected ids ${_selectedChatDocs.map((e) => e.id).toList()}');
+//             });
+//           },
+//           child: MessageTile(message: s.data.docs[i]['message'],
+//               isSelected: _selectedChatItems[i],
+//               isSender: s.data.docs[i]['sender'] == widget.myId),
+//         );
+//       });
+// }
 }
 
 

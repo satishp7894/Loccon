@@ -201,7 +201,9 @@ class _FeedListState extends State<FeedList> {
             future: Future.delayed(Duration(seconds: 6)),
             builder: (c, s) {
               if (s.connectionState != ConnectionState.done) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator(
+                  color: AppTheme.accentColor,
+                ));
               } else {
                 return Center(
                   child: Text('No events at the moment ',
