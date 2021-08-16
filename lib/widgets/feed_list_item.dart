@@ -8,6 +8,7 @@ import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
 import 'package:loccon/utils/connection.dart';
 import 'package:loccon/widgets/youtube_view.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
@@ -52,11 +53,10 @@ class _FeedListItemState extends State<FeedListItem> {
     // if (widget.feeds[widget.index].report == true) {
     //   return SizedBox();
     // }
-    return Padding(padding: const EdgeInsets.only(top: 10,bottom: 10),
+    return Padding(padding: const EdgeInsets.only(top: 10),
       child: Column(mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 8,),
           Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: GestureDetector(
@@ -74,8 +74,9 @@ class _FeedListItemState extends State<FeedListItem> {
                       Text('${widget.feeds[widget.index].userName}',
                         style: TextStyle(fontWeight: FontWeight.w700),),
                       SizedBox(height: 2,),
-                      Text('${timeAgo.format(widget.feeds[widget.index].feedDate)}',
-                        style: TextStyle(color: Colors.grey),),
+                      Text('${widget.feeds[widget.index].feedType} - ${widget.feeds[widget.index].category}',
+                        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
+                            fontSize: 16), maxLines: null,),
                     ],
                   ),
                   Spacer(),
@@ -113,19 +114,18 @@ class _FeedListItemState extends State<FeedListItem> {
               },
             ),
           ),
-          SizedBox(height: 14,),
+          SizedBox(height: 10,),
           _typeView(),
           Row(
             children: <Widget>[
               _likeView(),
-              SizedBox(width: 10,),
               _commentsView(),
               _shareView(),
               Spacer(),
               _saveView(),
             ],
           ),
-          Padding(
+         /* Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -137,14 +137,40 @@ class _FeedListItemState extends State<FeedListItem> {
                 style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
                  fontSize: 16), maxLines: null,),
             ),
+          ),*/
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text('${widget.feeds[widget.index].totalLikes} likes',
+              style: TextStyle(color: Colors.black),),
           ),
           if (widget.feeds[widget.index].photo.isNotEmpty ||
               widget.feeds[widget.index].videoLink != '')
-            Padding(padding: const EdgeInsets.only(top: 6,left: 10),
-              child: Text('${widget.feeds[widget.index].description}',
-                style: TextStyle(color: Colors.black.withOpacity(.7),
-                  fontSize: 16), maxLines: null,),
+            Padding(padding: const EdgeInsets.only(left: 10,top: 5),
+              child: Row(
+                children: [
+                  Text('${widget.feeds[widget.index].userName}',
+                    style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(width: 5,),
+                  Text('${widget.feeds[widget.index].description}',
+                    style: TextStyle(color: Colors.black.withOpacity(.7),
+                      fontSize: 16), maxLines: null,),
+                ],
+              ),
             ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0,top: 5),
+            child: Text('View all $_totalComments comments',
+              style: TextStyle(color: Colors.grey),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 10),
+            child: Text('${timeAgo.format(widget.feeds[widget.index].feedDate)}',
+              style: TextStyle(color: Colors.grey,fontSize: 14),),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(height: 0.0,color: Colors.grey,thickness: 0.2,),
+          )
         ],
       ),
     );
@@ -153,7 +179,7 @@ class _FeedListItemState extends State<FeedListItem> {
   Widget _typeView() {
     if (widget.feeds[widget.index].photo.isEmpty &&
         widget.feeds[widget.index].videoLink != '') {
-      return Container(height: 220,
+      return Container(height: 300,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
         child: YoutubeView(youtubeUrl: '${widget.feeds[widget.index].videoLink}'),
       );
@@ -171,6 +197,10 @@ class _FeedListItemState extends State<FeedListItem> {
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (c) =>
               InteractivePage(images: ['${widget.feeds[widget.index].photo[0]}'],)));
+        },
+        onDoubleTap: (){
+
+
         },
       );
     } else if (widget.feeds[widget.index].photo.length > 1) {
@@ -196,7 +226,7 @@ class _FeedListItemState extends State<FeedListItem> {
     return Column(
       children: <Widget>[
         GestureDetector(
-          child: Container(height: 220,
+          child: Container(height: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -210,9 +240,8 @@ class _FeedListItemState extends State<FeedListItem> {
               itemCount: widget.feeds[widget.index].photo.length,
               itemBuilder: (c, i) {
                 return Container(
-                  decoration: BoxDecoration(color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(fit: BoxFit.cover,
+                  decoration: BoxDecoration(color: Colors.white,
+                    image: DecorationImage(fit: BoxFit.contain,
                       image: NetworkImage(Connection.feedImagePath +
                           '${widget.feeds[widget.index].photo[i]}'),
                     ),
@@ -256,30 +285,24 @@ class _FeedListItemState extends State<FeedListItem> {
   }
 
   Widget _likeView() {
-    return Row(
-      children: <Widget>[
-        IconButton(
-          icon: _isLiked ? Icon(Icons.favorite,
-            color: Colors.red, size: 27,) :
-          Icon(Icons.favorite_border,
-            color: Colors.black.withOpacity(.7), size: 27,),
-          onPressed: () {
-            if (widget.userId == '') {
-              Alerts.showAlertLogin(context);
-              return;
-            }
-            setState(() {
-              _isLiked ? _isLiked = false : _isLiked = true;
-              _isLiked ? widget.feeds[widget.index].totalLikes += 1 :
-              widget.feeds[widget.index].totalLikes -= 1;
-            });
-            widget.feeds[widget.index].like = true;
-            widget.like();
-          },
-        ),
-        Text('${widget.feeds[widget.index].totalLikes}',
-          style: TextStyle(color: Colors.black87),),
-      ],
+    return IconButton(
+      icon: _isLiked ? Icon(Icons.favorite,
+        color: Colors.red, size: 27,) :
+      Icon(Icons.favorite_border,
+        color: Colors.black.withOpacity(.7), size: 27,),
+      onPressed: () {
+        if (widget.userId == '') {
+          Alerts.showAlertLogin(context);
+          return;
+        }
+        setState(() {
+          _isLiked ? _isLiked = false : _isLiked = true;
+          _isLiked ? widget.feeds[widget.index].totalLikes += 1 :
+          widget.feeds[widget.index].totalLikes -= 1;
+        });
+        widget.feeds[widget.index].like = true;
+        widget.like();
+      },
     );
   }
 
@@ -306,7 +329,7 @@ class _FeedListItemState extends State<FeedListItem> {
   Widget _commentsView() {
     return Row(
       children: <Widget>[
-        IconButton(icon: Icon(Icons.comment),
+        IconButton(icon: Icon(Icons.chat_bubble),
           color: Colors.black.withOpacity(.7),
           onPressed: () {
             if (widget.userId == '') {
@@ -319,8 +342,6 @@ class _FeedListItemState extends State<FeedListItem> {
                   userId: widget.userId,
                   feedValue: widget.feedValue,)));
           },),
-        Text('$_totalComments',
-          style: TextStyle(color: Colors.black87),),
       ],
     );
   }

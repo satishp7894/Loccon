@@ -36,7 +36,9 @@ class _SingleFeedPageState extends State<SingleFeedPage> {
         future: _homeBloc.getSingleFeed(widget.feedId),
         builder: (c, s) {
           if (s.connectionState != ConnectionState.done) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(
+              color: AppTheme.accentColor,
+            ));
           }
           if (s.hasError || s.data == null) {
             print('error is ${s.error}');

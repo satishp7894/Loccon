@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:loccon/main.dart';
 import 'package:loccon/models/category.dart';
 import 'package:loccon/models/feed_type.dart';
+import 'package:loccon/pages/login/login_page.dart';
 import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
 import 'package:loccon/utils/connection.dart';
@@ -151,11 +152,36 @@ class _NewPostState extends State<NewPost> {
 
 
 
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return name == "" ? Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'You are not logged in',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          // ignore: deprecated_member_use
+          OutlineButton(
+            child: Text('Login',style: TextStyle(color: AppTheme.accentColor,fontSize: 16),),
+            borderSide: BorderSide(
+                color: AppTheme.accentColor
+            ),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (c) => LoginPage()),
+                      (Route<dynamic> route) => false);
+            },
+          ),
+        ],
+      ),
+    )
+        : Scaffold(
       appBar: AppBar(
         title: Text("Share Post", style: TextStyle(fontSize: 18,
             fontWeight: FontWeight.w600),),

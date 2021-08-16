@@ -38,8 +38,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 1, centerTitle: true,
-        title: Text('Profile'),
+      appBar: AppBar(elevation: 1, centerTitle: false,
+        title: Text('Profile', style: TextStyle(fontSize: 18,
+            fontWeight: FontWeight.w600),),
       ),
       body: FutureBuilder(
         future: userProfile,
@@ -61,7 +62,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
             children: [
               SizedBox(height: 10,),
               _profileView(s.data[0]),
-              SizedBox(height: 20,),
+              SizedBox(height: 20,
+              child: Divider(height: 0.0,thickness: 0.2,color: Colors.grey,),),
               _postsView(s.data[1]),
             ],
           );
@@ -71,34 +73,47 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 
   Widget _profileView(UserDetails userDetails) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Row(mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            ClipRRect(
-              borderRadius: BorderRadius.circular(70),
-              child: FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
-                height: 140, width: 140, fit: BoxFit.cover,
-                image: Connection.profilePicPath + '${userDetails.photo}')?? null ,
-            ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(70),
+            border: Border.all(color: AppTheme.accentColor,width: 2)
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(70),
+            child: FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
+              height: 100, width: 100, fit: BoxFit.cover,
+              image: Connection.profilePicPath + '${userDetails.photo}')?? '' ,
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('${userDetails.userName}', style: TextStyle(color: AppTheme.accentColor,
+                fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,),
+            SizedBox(height: 5,),
+            Text('Email : ${userDetails.email}',
+              style: TextStyle(color: Colors.grey, fontSize: 14,),
+              textAlign: TextAlign.left,),
+            SizedBox(height: 5,),
+            Text('Contact : ${userDetails.mobile}',
+              style: TextStyle(color: Colors.grey, fontSize: 14,),
+              textAlign: TextAlign.left,),
           ],
         ),
-        SizedBox(height: 15,),
-        Text('${userDetails.userName}', style: TextStyle(color: AppTheme.accentColor,
-            fontSize: 20, fontWeight: FontWeight.w600),
-          textAlign: TextAlign.center,),
-        SizedBox(height: 5,),
-        Text('${userDetails.email} - ${userDetails.mobile}',
-          style: TextStyle(color: Colors.grey, fontSize: 16,),
-          textAlign: TextAlign.center,),
-        SizedBox(height: 14,),
+
+
       ],
     );
   }
 
   Widget _postsView(List<Feed> userPosts) {
-    return ListView.builder(shrinkWrap: true,
+    return ListView.builder(
+      shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: userPosts.length,
       itemBuilder: (c, i) {

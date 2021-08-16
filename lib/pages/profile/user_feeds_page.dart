@@ -152,7 +152,6 @@ class _UserFeedListItemState extends State<UserFeedListItem> {
           Row(
             children: <Widget>[
               _likeView(),
-              SizedBox(width: 10,),
               _commentsView(),
               _shareView(),
               Spacer(),
@@ -208,14 +207,21 @@ class _UserFeedListItemState extends State<UserFeedListItem> {
       return _multiPhotoView();
     } else {
       return Container(
-        constraints: BoxConstraints(minHeight: 220,),
+        constraints: BoxConstraints(minHeight: 300,),
         decoration: BoxDecoration(
           color: AppTheme.accentColor,
         ),
         alignment: Alignment.center,
         child: SingleChildScrollView(
-          child: Text('${widget.feeds[widget.index].description}',
-            style: TextStyle(color: Colors.white, fontSize: 18), textAlign: TextAlign.center,),
+          child: Row(
+            children: [
+              Text('${widget.feeds[widget.index].userName}',
+                style: TextStyle(fontWeight: FontWeight.w700),),
+              SizedBox(width: 5,),
+              Text('${widget.feeds[widget.index].description}',
+                style: TextStyle(color: Colors.white, fontSize: 18), textAlign: TextAlign.center,),
+            ],
+          ),
         ),
       );
     }

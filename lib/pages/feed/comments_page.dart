@@ -44,10 +44,10 @@ class _CommentsPageState extends State<CommentsPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       // ignore: missing_return
-      onWillPop: () { backPressed(); },
+      onWillPop: () { Navigator.pop(context); },
       child: Scaffold(
         appBar: AppBar(elevation: 1,
-          centerTitle: true,
+          centerTitle: false,
           title: Text('Comments'),
         ),
         body: SafeArea(
@@ -59,6 +59,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        cursorColor: Colors.black,
                         controller: _commentController,
                         style: TextStyle(color: Colors.black87),
                         onChanged: (v) {
@@ -136,7 +137,9 @@ class _CommentsPageState extends State<CommentsPage> {
         stream: _commentsBloc.commentsStream,
         builder: (c, s) {
           if (s.connectionState != ConnectionState.active) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(
+              color: AppTheme.accentColor,
+            ));
           }
           if (s.hasError || s.data.isEmpty) {
             return Center(child: Text('No Comments Found', style: TextStyle(fontSize: 16.5),));

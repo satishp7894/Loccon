@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Please Login to view Profile.',
+                  'You are not logged in',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
@@ -91,7 +91,10 @@ class _ProfilePageState extends State<ProfilePage>
                 ),
                 // ignore: deprecated_member_use
                 OutlineButton(
-                  child: Text('Login'),
+                  child: Text('Login',style: TextStyle(color: AppTheme.accentColor,fontSize: 16),),
+                  borderSide: BorderSide(
+                    color: AppTheme.accentColor
+                  ),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                         context,
@@ -106,6 +109,7 @@ class _ProfilePageState extends State<ProfilePage>
             length: 2,
             child: Scaffold(
               appBar: AppBar(
+                elevation: 1,
                 title: Row(
                   children: [
                     Image.asset(

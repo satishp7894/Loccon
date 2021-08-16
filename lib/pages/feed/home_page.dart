@@ -22,15 +22,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final _homeBloc = HomeBloc();
+ static Color color1 = Colors.white, color2 =  Colors.white;
   static int _feedCategoryValue;
   String feedTypeId = '';
 
   Map<int, Widget> _titles = <int, Widget>{
-    0: Text('For You',style: TextStyle(color:Colors.black,),),
-    1 :Text('Loccon',style: TextStyle(color:Colors.black, ),),
+    0: Text('For You',style: TextStyle(color:color1,fontSize: 18,fontWeight: FontWeight.bold),),
+    1 :Text('Loccon',style: TextStyle(color:color2, fontSize: 18,fontWeight: FontWeight.bold),),
   };
 
     static int _selectedFeedType = 0;
+
 
   @override
   void initState() {
@@ -53,10 +55,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 1,
         centerTitle: true,
         title: CupertinoSlidingSegmentedControl(
-          backgroundColor:Colors.white,
+          backgroundColor:AppTheme.secondary,
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
           children: _titles,
           thumbColor:AppTheme.accentColor,
@@ -75,6 +76,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Column(
+       mainAxisSize: MainAxisSize.min,
         children: [
           _categoriesView(),
           Expanded(
@@ -115,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                           color: AppTheme.accentColor, fontWeight: FontWeight.w700),),
                       SizedBox(height: 4,),
                       Container(height: 5, width: 5,
-                        decoration: BoxDecoration(color: AppTheme.accentColor,
+                        decoration: BoxDecoration(color: AppTheme.secondary,
                           shape: BoxShape.circle,),
                       ),
                     ],

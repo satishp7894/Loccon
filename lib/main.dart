@@ -280,8 +280,7 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Image.asset('assets/logo_icon.png',height: 60,width: 60,
-                      color: _selectedIndex == 2 ?
-                      AppTheme.accentColor : Colors.grey,),
+                      color: _selectedIndex == 2 ? null : Colors.grey,),
                   ),
                   onTap: () {
                     setState(() {
