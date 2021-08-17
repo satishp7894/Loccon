@@ -30,7 +30,7 @@ Curve _insetAnimCurve = Curves.easeInOut;
 EdgeInsets _dialogPadding = const EdgeInsets.all(8.0);
 
 Widget _progressWidget = Image.asset(
-  'assets/double_ring_loading_io.gif',
+  'assets/logo_icon.png',
   package: 'progress_dialog',
 );
 

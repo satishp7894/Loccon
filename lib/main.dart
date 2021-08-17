@@ -247,9 +247,9 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/plus.png', height: 30, width: 30,
+                    child: Image.asset('assets/add.png', height: 30, width: 30,
                       color: _selectedIndex == 0 ?
-                      AppTheme.accentColor : Colors.grey,),
+                      null : Colors.grey,),
                   ),
                   onTap: () {
                     setState(() {
@@ -262,7 +262,7 @@ class _HomeState extends State<Home> {
                       child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Image.asset('assets/chat.png', height: 30, width: 30,
                           color: _selectedIndex == 1 ?
-                          AppTheme.accentColor : Colors.grey,),
+                          null : Colors.grey,),
                       ),
                       onTap: () {
                         print('chat list provider called');
@@ -293,7 +293,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Image.asset('assets/calendar.png', height: 30, width: 30,
                       color: _selectedIndex == 3 ?
-                      AppTheme.accentColor : Colors.grey,),
+                      null : Colors.grey,),
                   ),
                   onTap: () {
                     setState(() {
@@ -309,7 +309,7 @@ class _HomeState extends State<Home> {
                           height: 30,
                           width: 30,
                         color: _selectedIndex == 4 ?
-                        AppTheme.accentColor : Colors.grey,
+                        null : Colors.grey,
                           fit: BoxFit.contain,),
                       onTap: () {
                         setState(() {
