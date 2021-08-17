@@ -8,7 +8,6 @@ import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
 import 'package:loccon/utils/connection.dart';
 import 'package:loccon/widgets/youtube_view.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
@@ -53,30 +52,53 @@ class _FeedListItemState extends State<FeedListItem> {
     // if (widget.feeds[widget.index].report == true) {
     //   return SizedBox();
     // }
-    return Padding(padding: const EdgeInsets.only(top: 10),
-      child: Column(mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: GestureDetector(
-              child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(18),
-                    child:FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
-                      height: 36, width: 36, fit: BoxFit.cover,
-                      image: Connection.profilePicPath + '${widget.feeds[widget.index].profilePic}' ??  'assets/avatar.png' ),
+    return _feedListView();
+  }
+
+
+
+  Widget _feedListView(){
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: AppTheme.accentColor)
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child:FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
+                            height: 36, width: 36, fit: BoxFit.cover,
+                            image: Connection.profilePicPath + '${widget.feeds[widget.index].profilePic}' ??  'assets/avatar.png' ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10,),
                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text('${widget.feeds[widget.index].userName}',
-                        style: TextStyle(fontWeight: FontWeight.w700),),
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                       SizedBox(height: 2,),
                       Text('${widget.feeds[widget.index].feedType} - ${widget.feeds[widget.index].category}',
-                        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
-                            fontSize: 16), maxLines: null,),
+                        style: TextStyle(color: Colors.black,
+                            fontSize: 12), maxLines: null,),
+                      SizedBox(height: 2,),
+                      Text('${timeAgo.format(widget.feeds[widget.index].feedDate)}',
+                        style: TextStyle(color: Colors.grey,fontSize: 10),),
                     ],
                   ),
                   Spacer(),
@@ -93,8 +115,8 @@ class _FeedListItemState extends State<FeedListItem> {
                           String dp = widget.feeds[widget.index].profilePic;
                           String _chatRoomId = _getChatRoomId(myId, userId); // _getChatRoomId(myId, userId);
                           Navigator.push(context, MaterialPageRoute(builder: (c) =>
-                            ChatPage(chatRoomId: _chatRoomId, myId: myId, myName: myUserName,
-                              userName: widget.feeds[widget.index].name,userDp: dp,)));
+                              ChatPage(chatRoomId: _chatRoomId, myId: myId, myName: myUserName,
+                                userName: widget.feeds[widget.index].name,userDp: dp,)));
                         }
                       },
                       itemBuilder: (BuildContext context) {
@@ -105,75 +127,61 @@ class _FeedListItemState extends State<FeedListItem> {
                         }).toList();
                       },
                     ),
+
                 ],
+
               ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (c) =>
-                    UserProfilePage(userId: widget.userId,
-                      profileId: widget.feeds[widget.index].userId,)));
-              },
-            ),
-          ),
-          SizedBox(height: 10,),
-          _typeView(),
-          Row(
-            children: <Widget>[
-              _likeView(),
-              _commentsView(),
-              _shareView(),
-              Spacer(),
-              _saveView(),
+              if (widget.feeds[widget.index].photo.isNotEmpty ||
+                  widget.feeds[widget.index].videoLink != '')
+                Padding(padding: const EdgeInsets.only(left: 10,top: 5),
+                  child: Text('${widget.feeds[widget.index].description}',
+                    style: TextStyle(color: Colors.black,
+                        fontSize: 14), maxLines: null,),
+                ),
+              SizedBox(height: 10,),
+              _typeView(),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${widget.feeds[widget.index].totalLikes} likes',
+                      style: TextStyle(color: Colors.black,fontSize: 14),),
+                    Text('$_totalComments comments',
+                      style: TextStyle(color: Colors.black,fontSize: 14),),
+
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
+                child: Divider(height: 0.0,thickness: 1,color: Colors.grey,),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _likeView(),
+                    _commentsView(),
+                    _shareView(),
+                    _saveView(),
+                  ],
+
+                ),
+              )
+
+
+
             ],
           ),
-         /* Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black87, width: 0.8),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text('${widget.feeds[widget.index].feedType} - ${widget.feeds[widget.index].category}',
-                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
-                 fontSize: 16), maxLines: null,),
-            ),
-          ),*/
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text('${widget.feeds[widget.index].totalLikes} likes',
-              style: TextStyle(color: Colors.black),),
-          ),
-          if (widget.feeds[widget.index].photo.isNotEmpty ||
-              widget.feeds[widget.index].videoLink != '')
-            Padding(padding: const EdgeInsets.only(left: 10,top: 5),
-              child: Row(
-                children: [
-                  Text('${widget.feeds[widget.index].userName}',
-                    style: TextStyle(fontWeight: FontWeight.bold),),
-                  SizedBox(width: 5,),
-                  Text('${widget.feeds[widget.index].description}',
-                    style: TextStyle(color: Colors.black.withOpacity(.7),
-                      fontSize: 16), maxLines: null,),
-                ],
-              ),
-            ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0,top: 5),
-            child: Text('View all $_totalComments comments',
-              style: TextStyle(color: Colors.grey),),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 10),
-            child: Text('${timeAgo.format(widget.feeds[widget.index].feedDate)}',
-              style: TextStyle(color: Colors.grey,fontSize: 14),),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Divider(height: 0.0,color: Colors.grey,thickness: 0.2,),
-          )
-        ],
       ),
-    );
+    ),
+  );
+
   }
 
   Widget _typeView() {
@@ -227,9 +235,6 @@ class _FeedListItemState extends State<FeedListItem> {
       children: <Widget>[
         GestureDetector(
           child: Container(height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-            ),
             child: PageView.builder(
               physics: ClampingScrollPhysics(),
               onPageChanged: (page) {
@@ -278,60 +283,70 @@ class _FeedListItemState extends State<FeedListItem> {
       height: isActive ? 9 : 6,
       width: isActive ? 9 : 6,
       decoration: BoxDecoration(
-        color: isActive ? Colors.black :
-        Colors.black.withOpacity(.5),
+        color: isActive ? AppTheme.accentColor :
+        AppTheme.secondary,
         borderRadius: BorderRadius.all(Radius.circular(12))),
     );
   }
 
   Widget _likeView() {
-    return IconButton(
-      icon: _isLiked ? Icon(Icons.favorite,
-        color: Colors.red, size: 27,) :
-      Icon(Icons.favorite_border,
-        color: Colors.black.withOpacity(.7), size: 27,),
-      onPressed: () {
-        if (widget.userId == '') {
-          Alerts.showAlertLogin(context);
-          return;
-        }
-        setState(() {
-          _isLiked ? _isLiked = false : _isLiked = true;
-          _isLiked ? widget.feeds[widget.index].totalLikes += 1 :
-          widget.feeds[widget.index].totalLikes -= 1;
-        });
-        widget.feeds[widget.index].like = true;
-        widget.like();
-      },
+    return Column(
+      children: [
+        GestureDetector(
+          child: _isLiked ? Icon(Icons.favorite,
+            color: Colors.red, size: 27,) : Icon(Icons.favorite_border,
+            color: Colors.black.withOpacity(.7), size: 27,),
+          onTap: () {
+            if (widget.userId == '') {
+              Alerts.showAlertLogin(context);
+              return;
+            }
+            setState(() {
+              _isLiked ? _isLiked = false : _isLiked = true;
+              _isLiked ? widget.feeds[widget.index].totalLikes += 1 :
+              widget.feeds[widget.index].totalLikes -= 1;
+            });
+            widget.feeds[widget.index].like = true;
+            widget.like();
+          },
+        ),
+        SizedBox(height: 5,),
+        Text("Like",style: TextStyle(color: Colors.black,fontSize: 12),)
+      ],
     );
   }
 
   Widget _saveView() {
-    return IconButton(
-      icon: _isSaved ? Icon(Icons.bookmark,
-        color: Colors.black87, size: 27,) :
-      Icon(Icons.bookmark_border,
-        color: Colors.black.withOpacity(.7), size: 27,),
-      onPressed: () {
-        if (widget.userId == '') {
-          Alerts.showAlertLogin(context);
-          return;
-        }
-        setState(() {
-          _isSaved ? _isSaved = false : _isSaved = true;
-        });
-        widget.feeds[widget.index].save = true;
-        widget.save();
-      },
+    return Column(
+      children: [
+        GestureDetector(
+          child: _isSaved ? Icon(Icons.bookmark,
+            color: Colors.black87, size: 27,) :
+          Icon(Icons.bookmark_border,
+            color: Colors.black.withOpacity(.7), size: 27,),
+          onTap: () {
+            if (widget.userId == '') {
+              Alerts.showAlertLogin(context);
+              return;
+            }
+            setState(() {
+              _isSaved ? _isSaved = false : _isSaved = true;
+            });
+            widget.feeds[widget.index].save = true;
+            widget.save();
+          },
+        ),
+        SizedBox(height: 5,),
+        Text('Save',style: TextStyle(color: Colors.black,fontSize: 12),)
+      ],
     );
   }
 
   Widget _commentsView() {
-    return Row(
+    return Column(
       children: <Widget>[
-        IconButton(icon: Icon(Icons.chat_bubble),
-          color: Colors.black.withOpacity(.7),
-          onPressed: () {
+        GestureDetector(child: Icon(Icons.chat_bubble,size: 27, color: Colors.black.withOpacity(.7),),
+          onTap: () {
             if (widget.userId == '') {
               Alerts.showAlertLogin(context);
               return;
@@ -342,16 +357,150 @@ class _FeedListItemState extends State<FeedListItem> {
                   userId: widget.userId,
                   feedValue: widget.feedValue,)));
           },),
+        SizedBox(height: 5,),
+        Text("Comment",style: TextStyle(color: Colors.black,fontSize: 12),)
       ],
     );
   }
 
   Widget _shareView() {
-    return IconButton(icon: Icon(Icons.send),
-      color: Colors.black.withOpacity(.7),
-      onPressed: () {
-        widget.share();
-      },);
+    return Column(
+      children: [
+        GestureDetector(child: Icon(Icons.send,size: 27, color: Colors.black.withOpacity(.7),),
+
+          onTap: () {
+            widget.share();
+          },),
+        SizedBox(height: 5,),
+        Text("Share",style: TextStyle(color: Colors.black,fontSize: 12),)
+      ],
+    );
   }
 
+  Widget oldFeedList() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: GestureDetector(
+              child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child:FadeInImage.assetNetwork(placeholder: 'assets/avatar.png',
+                        height: 36, width: 36, fit: BoxFit.cover,
+                        image: Connection.profilePicPath + '${widget.feeds[widget.index].profilePic}' ??  'assets/avatar.png' ),
+                  ),
+                  SizedBox(width: 10,),
+                  Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('${widget.feeds[widget.index].userName}',
+                        style: TextStyle(fontWeight: FontWeight.w700),),
+                      SizedBox(height: 2,),
+                      Text('${widget.feeds[widget.index].feedType} - ${widget.feeds[widget.index].category}',
+                        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
+                            fontSize: 16), maxLines: null,),
+                    ],
+                  ),
+                  Spacer(),
+                  if (widget.userId != '' && widget.userId != widget.feeds[widget.index].userId)
+                    PopupMenuButton<String>(
+                      onSelected: (s) async {
+                        if (s == 'Report') {
+                          widget.report();
+                        } else {
+                          SharedPreferences _prefs = await SharedPreferences.getInstance();
+                          String myId = _prefs.getString('id') ?? '';
+                          String myUserName =  _prefs.getString('username') ?? '';
+                          String userId = widget.feeds[widget.index].userId;
+                          String dp = widget.feeds[widget.index].profilePic;
+                          String _chatRoomId = _getChatRoomId(myId, userId); // _getChatRoomId(myId, userId);
+                          Navigator.push(context, MaterialPageRoute(builder: (c) =>
+                              ChatPage(chatRoomId: _chatRoomId, myId: myId, myName: myUserName,
+                                userName: widget.feeds[widget.index].name,userDp: dp,)));
+                        }
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return {'Message', 'Report'}.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice, child: Text(choice),
+                          );
+                        }).toList();
+                      },
+                    ),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (c) =>
+                    UserProfilePage(userId: widget.userId,
+                      profileId: widget.feeds[widget.index].userId,)));
+              },
+            ),
+          ),
+          SizedBox(height: 10,),
+          _typeView(),
+          Row(
+            children: <Widget>[
+              _likeView(),
+              _commentsView(),
+              _shareView(),
+              Spacer(),
+              _saveView(),
+            ],
+          ),
+          /* Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black87, width: 0.8),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text('${widget.feeds[widget.index].feedType} - ${widget.feeds[widget.index].category}',
+                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600,
+                 fontSize: 16), maxLines: null,),
+            ),
+          ),*/
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text('${widget.feeds[widget.index].totalLikes} likes',
+              style: TextStyle(color: Colors.black),),
+          ),
+
+          if (widget.feeds[widget.index].photo.isNotEmpty ||
+              widget.feeds[widget.index].videoLink != '')
+            Padding(padding: const EdgeInsets.only(left: 10,top: 5),
+              child: Row(
+                children: [
+                  Text('${widget.feeds[widget.index].userName}',
+                    style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(width: 5,),
+                  Text('${widget.feeds[widget.index].description}',
+                    style: TextStyle(color: Colors.black.withOpacity(.7),
+                        fontSize: 16), maxLines: null,),
+                ],
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0,top: 5),
+            child: Text('View all $_totalComments comments',
+              style: TextStyle(color: Colors.grey),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 10),
+            child: Text('${timeAgo.format(widget.feeds[widget.index].feedDate)}',
+              style: TextStyle(color: Colors.grey,fontSize: 14),),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(height: 0.0,color: Colors.grey,thickness: 0.2,),
+          )
+        ],
+      ),
+    );
+  }
 }
