@@ -217,12 +217,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        if (_selectedIndex == 0) {
+        if (_selectedIndex == 2) {
           Alerts.showAlertExit(context);
           return Future.value(true);
         } else {
           setState(() {
-            _selectedIndex = 0;
+            _selectedIndex = 2;
           });
           return Future.value(false);
         }

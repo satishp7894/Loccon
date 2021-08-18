@@ -294,8 +294,8 @@ class _FeedListItemState extends State<FeedListItem> {
       children: [
         GestureDetector(
           child: _isLiked ? Icon(Icons.favorite,
-            color: Colors.red, size: 27,) : Icon(Icons.favorite_border,
-            color: Colors.black.withOpacity(.7), size: 27,),
+            color: Colors.red, size: 20,) : Icon(Icons.favorite_border,
+            color: Colors.black, size: 20,),
           onTap: () {
             if (widget.userId == '') {
               Alerts.showAlertLogin(context);
@@ -321,9 +321,9 @@ class _FeedListItemState extends State<FeedListItem> {
       children: [
         GestureDetector(
           child: _isSaved ? Icon(Icons.bookmark,
-            color: Colors.black87, size: 27,) :
+            color: Colors.black, size: 20,) :
           Icon(Icons.bookmark_border,
-            color: Colors.black.withOpacity(.7), size: 27,),
+            color: Colors.black, size: 20,),
           onTap: () {
             if (widget.userId == '') {
               Alerts.showAlertLogin(context);
@@ -345,7 +345,7 @@ class _FeedListItemState extends State<FeedListItem> {
   Widget _commentsView() {
     return Column(
       children: <Widget>[
-        GestureDetector(child: Icon(Icons.chat_bubble,size: 27, color: Colors.black.withOpacity(.7),),
+        GestureDetector(child: Icon(Icons.chat_bubble,size: 20, color: Colors.black,),
           onTap: () {
             if (widget.userId == '') {
               Alerts.showAlertLogin(context);
@@ -366,7 +366,7 @@ class _FeedListItemState extends State<FeedListItem> {
   Widget _shareView() {
     return Column(
       children: [
-        GestureDetector(child: Icon(Icons.send,size: 27, color: Colors.black.withOpacity(.7),),
+        GestureDetector(child: Icon(Icons.send,size: 20, color: Colors.black,),
 
           onTap: () {
             widget.share();

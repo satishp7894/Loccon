@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loccon/main.dart';
 import 'package:loccon/pages/login/login_page.dart';
+import 'package:loccon/utils/apptheme.dart';
 
 
 class Alerts {
@@ -123,17 +124,23 @@ class Alerts {
     showDialog(context: context,
       builder: (BuildContext c) {
         return Platform.isIOS ? CupertinoAlertDialog(
-          title: Text('Close App'),
-          content: Text('Are you sure you want to close app?'),
+          title: Row(
+            children: [
+              Image.asset("assets/logo_icon.png"),
+              SizedBox(width: 5,),
+              Text('Loccon App',style: TextStyle(color: AppTheme.accentColor),),
+            ],
+          ),
+          content: Text('Are you sure you want to exit from app?'),
           actions: <Widget>[
             CupertinoButton(
-              child: Text("Cancel", style: TextStyle(color: Colors.red),),
+              child: Text("Dismiss", style: TextStyle(color: Colors.red),),
               onPressed: () {
                 Navigator.of(c).pop();
               },
             ),
             CupertinoButton(
-              child: Text("Close", style: TextStyle(color: Colors.red),),
+              child: Text("Exit", style: TextStyle(color: Colors.red),),
               onPressed: () {
                 Navigator.of(c).pop();
                 SystemNavigator.pop();
@@ -141,17 +148,23 @@ class Alerts {
             ),
           ],
         ) : AlertDialog(
-          title: Text('Close App'),
-          content: Text('Are you sure you want to close app?'),
+          title:Row(
+            children: [
+              Image.asset("assets/logo_icon.png",height: 50,width: 50,),
+              SizedBox(width: 5,),
+              Text('Loccon App',style: TextStyle(color: AppTheme.accentColor),),
+            ],
+          ),
+          content: Text('Are you sure you want to exit from app?'),
           actions: <Widget>[
             FlatButton(
-              child: Text("Cancel", style: TextStyle(color: Colors.red),),
+              child: Text("Dismiss", style: TextStyle(color: Colors.black),),
               onPressed: () {
                 Navigator.of(c).pop();
               },
             ),
             FlatButton(
-              child: Text("Close", style: TextStyle(color: Colors.red),),
+              child: Text("Exit", style: TextStyle(color: Colors.red),),
               onPressed: () {
                 Navigator.of(c).pop();
                 SystemNavigator.pop();
