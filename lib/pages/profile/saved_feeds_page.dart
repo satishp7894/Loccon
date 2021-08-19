@@ -41,9 +41,7 @@ class _SavedFeedsPageState extends State<SavedFeedsPage> {
         stream: _homeBloc.savedFeedStream,
         builder: (c, s) {
           if (s.connectionState != ConnectionState.active) {
-            return Center(child: CircularProgressIndicator(
-              color: AppTheme.accentColor,
-            ));
+            return Center(child: Image.asset("assets/loading.gif",height: 60,));
           }
           if (s.hasError || s.data.isEmpty) {
             return Center(

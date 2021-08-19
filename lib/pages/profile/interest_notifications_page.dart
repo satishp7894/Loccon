@@ -104,7 +104,7 @@ class _InterestNotificationsPageState extends State<InterestNotificationsPage> {
                 future: _allInterests,
                 builder: (c, s) {
                   if (s.connectionState != ConnectionState.done) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: Image.asset("assets/loading.gif",height: 60,));
                   }
                   if (s.hasError) {
                     print('error is ${s.error}');

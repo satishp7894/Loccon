@@ -306,11 +306,7 @@ class _PostPageState extends State<PostPage> {
       Alerts.showAlert(context, 'Alert', 'Please add either images, youtube link or description.');
       return;
     }
-
-    // ByteData byteData = await images[0].getByteData();
-    // List<int> imageData = byteData.buffer.asUint8List();
-    ProgressDialog pr = ProgressDialog(context, type: ProgressDialogType.Normal,
-        isDismissible: false, showLogs: true);
+    ProgressDialog pr = ProgressDialog(context, type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
     pr.style(message: 'Posting Feed...');
     pr.show();
     print('youtube link ${_youtubeUrlController.text}');

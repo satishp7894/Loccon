@@ -199,13 +199,13 @@ class _ProfilePageState extends State<ProfilePage>
                     borderRadius: BorderRadius.circular(70),
                     child: _imageFile == null
                         ? FadeInImage.assetNetwork(
-                            placeholder: 'assets/avatar.png',
+                            placeholder: 'assets/avatar.png' ?? " ",
                             height: 80,
                             width: 80,
                             fit: BoxFit.contain,
-                            image: Connection.profilePicPath + '$profilePic')
+                            image: Connection.profilePicPath + '$profilePic') ?? " "
                         : Image.file(_imageFile,
-                            height: 80, width: 80, fit: BoxFit.contain),
+                            height: 80, width: 80, fit: BoxFit.contain)?? " ",
                   ),
                 ),
                 onTap: () {

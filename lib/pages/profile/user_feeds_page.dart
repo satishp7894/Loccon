@@ -48,9 +48,7 @@ class _UserFeedsPageState extends State<UserFeedsPage> {
         stream: _homeBloc.userFeedStream,
         builder: (c, s) {
           if (s.connectionState != ConnectionState.active) {
-            return Center(child: CircularProgressIndicator(
-              color: AppTheme.accentColor,
-            ));
+            return Center(child: Image.asset("assets/loading.gif",height: 60,));
           }
           if (s.hasError || s.data.isEmpty) {
             return Center(child: Text('No feeds found',

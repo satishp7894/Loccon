@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[350],
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _categoriesView() {
     return Container(height: 45,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 5),
       child: StreamBuilder<List<FeedType>>(
         stream: _homeBloc.feedTypeStream,
         builder: (c, s) {
@@ -189,9 +189,7 @@ class _FeedListState extends State<FeedList> {
       stream: widget.homeBloc.feedStream,
       builder: (c, s) {
         if (s.connectionState != ConnectionState.active) {
-          return Center(child: CircularProgressIndicator(
-            color: AppTheme.accentColor,
-          ));
+          return Center(child: Image.asset("assets/loading.gif",height: 60,));
         }
         if (s.hasError) {
           print('error is ${s.error}');
@@ -204,9 +202,7 @@ class _FeedListState extends State<FeedList> {
             future: Future.delayed(Duration(seconds: 6)),
             builder: (c, s) {
               if (s.connectionState != ConnectionState.done) {
-                return Center(child: CircularProgressIndicator(
-                  color: AppTheme.accentColor,
-                ));
+                return Center(child: Image.asset("assets/loading.gif",height: 60,));
               } else {
                 return Center(
                   child: Text('No events at the moment ',
@@ -218,6 +214,7 @@ class _FeedListState extends State<FeedList> {
         print("feed category value ${widget.feedCategory} ${widget.feedTypeId}");
         return RefreshIndicator(
           color: AppTheme.accentColor,
+
           onRefresh: () async {
             if (widget.feedCategory == 0) {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => Home(userId: widget.userId,feedCategoryValue: 0,)));

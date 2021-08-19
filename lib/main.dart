@@ -241,13 +241,13 @@ class _HomeState extends State<Home> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            height: 60,
+            height: 50,
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/add.png', height: 30, width: 30,
+                    child: Image.asset('assets/add.png', height: 25, width: 25,
                       color: _selectedIndex == 0 ?
                       null : Colors.grey,),
                   ),
@@ -260,7 +260,7 @@ class _HomeState extends State<Home> {
                 Stack(clipBehavior: Clip.none, children: [
                     GestureDetector(
                       child: Padding(padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Image.asset('assets/chat.png', height: 30, width: 30,
+                        child: Image.asset('assets/chat.png', height: 25, width: 25,
                           color: _selectedIndex == 1 ?
                           null : Colors.grey,),
                       ),
@@ -279,7 +279,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/logo_icon.png',height: 60,width: 60,
+                    child: Image.asset('assets/logo_icon.png',height: 50,width: 50,
                       color: _selectedIndex == 2 ? null : Colors.grey,),
                   ),
                   onTap: () {
@@ -291,7 +291,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Image.asset('assets/calendar.png', height: 30, width: 30,
+                    child: Image.asset('assets/calendar.png', height: 25, width: 25,
                       color: _selectedIndex == 3 ?
                       null : Colors.grey,),
                   ),
@@ -306,8 +306,8 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: GestureDetector(
                       child: Image.asset('assets/user.png',
-                          height: 30,
-                          width: 30,
+                          height: 25,
+                          width: 25,
                         color: _selectedIndex == 4 ?
                         null : Colors.grey,
                           fit: BoxFit.contain,),

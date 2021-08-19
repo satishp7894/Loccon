@@ -68,9 +68,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         stream: FirestoreDatabase.getChatRooms(widget.myUserName),
         builder: (c, s) {
           if (s.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(
-              color: AppTheme.accentColor,
-            ));
+            return Center(child: Image.asset("assets/loading.gif",height: 60,));
           }
           if (s.hasError || s.data.docs.isEmpty) {
             print('message error is ${s.error}');

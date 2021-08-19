@@ -89,6 +89,7 @@ flutter:
     - assets/plus.png
     - assets/calendar.png
     - assets/add.png
+    - assets/loading.gif
   fonts:
     - family: Rubik
       fonts:

@@ -134,9 +134,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       stream: FirestoreDatabase.getChatMessages(widget.chatRoomId),
       builder: (c, s) {
         if (s.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(
-            color: AppTheme.accentColor,
-          ));
+          return Center(child: Image.asset("assets/loading.gif",height: 60,));
         }
         if (s.hasData) {
           return ChatListView(s: s, myId: widget.myId,

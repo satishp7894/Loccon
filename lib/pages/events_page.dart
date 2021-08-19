@@ -46,7 +46,7 @@ class _EventsPageState extends State<EventsPage> {
               future: Future.delayed(Duration(seconds: 6)),
               builder: (c, s) {
                 if (s.connectionState != ConnectionState.done) {
-                  return Center(child: CircularProgressIndicator(color: AppTheme.accentColor,));
+                  return Center(child: Image.asset("assets/loading.gif",height: 60,));
                 } else {
                   return Center(
                     child: Text('No events at the moment ',

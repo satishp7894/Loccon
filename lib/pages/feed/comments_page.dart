@@ -137,9 +137,7 @@ class _CommentsPageState extends State<CommentsPage> {
         stream: _commentsBloc.commentsStream,
         builder: (c, s) {
           if (s.connectionState != ConnectionState.active) {
-            return Center(child: CircularProgressIndicator(
-              color: AppTheme.accentColor,
-            ));
+            return Center(child: Image.asset("assets/loading.gif",height: 60,));
           }
           if (s.hasError || s.data.isEmpty) {
             return Center(child: Text('No Comments Found', style: TextStyle(fontSize: 16.5),));

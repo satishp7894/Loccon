@@ -46,9 +46,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         future: userProfile,
         builder: (c, s) {
           if (s.connectionState != ConnectionState.done) {
-            return Center(child: CircularProgressIndicator(
-              color: AppTheme.accentColor,
-            ));
+            return Center(child: Image.asset("assets/loading.gif",height: 60,));
           }
           if (s.hasError) {
             print('error is ${s.error}');

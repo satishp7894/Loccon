@@ -29,10 +29,7 @@ Color _backgroundColor = Colors.white;
 Curve _insetAnimCurve = Curves.easeInOut;
 EdgeInsets _dialogPadding = const EdgeInsets.all(8.0);
 
-Widget _progressWidget = Image.asset(
-  'assets/logo_icon.png',
-  package: 'progress_dialog',
-);
+Widget _progressWidget = Image.asset('assets/loading.gif',height: 60,);
 
 class ProgressDialog {
   _Body _dialog;

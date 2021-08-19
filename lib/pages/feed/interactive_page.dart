@@ -27,7 +27,7 @@ class _InteractivePageState extends State<InteractivePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -40,7 +40,7 @@ class _InteractivePageState extends State<InteractivePage> {
                      '${Connection.feedImagePath}' + _currentImage),
                  ),
                ),
-               Container(height: 80,
+               Container(height: 150,
                  child: ListView.builder(
                    physics: BouncingScrollPhysics(),
                    scrollDirection: Axis.horizontal,
@@ -50,7 +50,11 @@ class _InteractivePageState extends State<InteractivePage> {
                        child: Container(
                          margin: const EdgeInsets.all(8),
                          padding: const EdgeInsets.all(1),
-                         color: Colors.white,
+                         decoration: BoxDecoration(
+                           border: Border.all(color: Colors.black),
+                           color: Colors.white,
+                         ),
+
                          child: Image.network('${Connection.feedImagePath}' + widget.images[i]),
                        ),
                        onTap: () {
