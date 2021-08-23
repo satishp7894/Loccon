@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage>
     });
     ProgressDialog pr = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: 'Updating profile picture');
+    pr.style(message: 'Updating your profile picture');
     pr.show();
     final _apiClient = ApiClient();
     await _apiClient.updateProfilePhoto(_imageFile);
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage>
                   ],
                 ),
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(200),
+                  preferredSize: Size.fromHeight(220),
                   child: SafeArea(
                     child: ListView(
                       shrinkWrap: true,
@@ -189,64 +189,73 @@ class _ProfilePageState extends State<ProfilePage>
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(70),
-                    border: Border.all(color: AppTheme.accentColor)
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(70),
-                    child: _imageFile == null
-                        ? FadeInImage.assetNetwork(
-                            placeholder: 'assets/avatar.png' ?? " ",
-                            height: 80,
-                            width: 80,
-                            fit: BoxFit.contain,
-                            image: Connection.profilePicPath + '$profilePic') ?? " "
-                        : Image.file(_imageFile,
-                            height: 80, width: 80, fit: BoxFit.contain)?? " ",
-                  ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(70),
+                        border: Border.all(color: AppTheme.accentColor)
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: _imageFile == null
+                            ? FadeInImage.assetNetwork(
+                                placeholder: 'assets/avatar.png' ?? " ",
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.contain,
+                                image: Connection.profilePicPath + '$profilePic') ?? " "
+                            : Image.file(_imageFile,
+                                height: 80, width: 80, fit: BoxFit.contain)?? " ",
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    GestureDetector(child: Text("Change Profile Picture",textAlign: TextAlign.center,style: TextStyle(color: AppTheme.accentColor),),onTap: _uploadProfilePicture,)
+                  ],
                 ),
-                onTap: () {
-                  _uploadProfilePicture();
-                },
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10,),
-                  Text(
-                    '$name',
-                    style: TextStyle(
-                        color: AppTheme.accentColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Email : $email',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30,),
+                    Text(
+                      '$name',
+                      style: TextStyle(
+                          color: AppTheme.accentColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ), Text(
-                    'Contact : $mobile',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
+                    SizedBox(
+                      height: 10,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
+                    Text(
+                      'Email : $email',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ), Text(
+                      'Phone : $mobile',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -284,9 +293,24 @@ class _ProfilePageState extends State<ProfilePage>
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       children: <Widget>[
-        SizedBox(
-          height: 100,
+        Container(
+          height: 170,
           child: UserAccountsDrawerHeader(
+            currentAccountPicture: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(70),
+                border: Border.all(color: AppTheme.accentColor)
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(70),
+                child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/avatar.png' ?? " ",
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.contain,
+                    image: Connection.profilePicPath + '$profilePic') ?? " ",
+              ),
+            ),
             accountName: Text(
               '$userName',
               style: TextStyle(

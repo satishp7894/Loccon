@@ -47,8 +47,8 @@ class _SignUpPageState extends State<SignUpPage>
 
   int _sharedValue = 0;
   final Map<int, Widget> _titles = <int, Widget>{
-    0: Text('General'),
-    1: Text('Business'),
+    0: Text('General',style: TextStyle(color: Colors.white),),
+    1: Text('Business',style: TextStyle(color: Colors.white),),
   };
 
   _addCategories() {
@@ -102,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage>
             'Please select interests and try again.');
         return;
       }
-      print('interest ${json.encode(_categoryIds)} \n categ $_categoryId \n statte $_stateId \n city $_cityId');
+      print('interest ${json.encode(_categoryIds)} \n category $_categoryId \n state $_stateId \n city $_cityId');
       var response = await http.post(Connection.signUp, body: {
         'user_type': _sharedValue == 0 ? 'Normal' : 'Business',
         'userName': '${_userNameController.text}',
@@ -194,61 +194,66 @@ class _SignUpPageState extends State<SignUpPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: false, elevation: 2,
-        title: Text('Complete your profile'),
+        title:Text('Complete your Profile', style: TextStyle(fontSize: 18,
+            fontWeight: FontWeight.w600),),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: Form(autovalidateMode: _autoValidateMode, key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 15,),
-                FlipView(
-                  animationController: _curvedAnimation,
-                  front: _userSignUpView(),
-                  back: _businessSignUpView(),
-                ),
-                SizedBox(height: 20,),
-                _sharedValue == 1 ?
-                SizedBox(width: double.infinity,
-                  child: _isBackView ?
-                  CupertinoButton(color: AppTheme.accentColor,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10.0,right: 10),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Form(autovalidateMode: _autoValidateMode, key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 15,),
+                  FlipView(
+                    animationController: _curvedAnimation,
+                    front: _userSignUpView(),
+                    back: _businessSignUpView(),
+                  ),
+                  SizedBox(height: 20,),
+                  _sharedValue == 1 ?
+                  _isBackView ?
+                  Center(
+                    child: CupertinoButton(color: AppTheme.accentColor,
+                        child: Text('Submit', style: TextStyle(color: Colors.white),),
+                        onPressed: () {
+                         _register();
+                      }),
+                  ) :
+                  Center(
+                    child: CupertinoButton(color: AppTheme.accentColor,
+                      child: Text('Continue', style: TextStyle(color: Colors.white),),
+                      onPressed: () {
+                        _flip(true);
+                      }),
+                  ) :
+                  Center(
+                    child: CupertinoButton(color: AppTheme.accentColor,
                       child: Text('Submit', style: TextStyle(color: Colors.white),),
                       onPressed: () {
-                       _register();
-                    }) :
-                  CupertinoButton(color: AppTheme.accentColor,
-                    child: Text('Continue', style: TextStyle(color: Colors.white),),
-                    onPressed: () {
-                      _flip(true);
+                        _register();
                     }),
-                ) :
-                SizedBox(width: double.infinity,
-                  child: CupertinoButton(color: AppTheme.accentColor,
-                    child: Text('Submit', style: TextStyle(color: Colors.white),),
-                    onPressed: () {
-                      _register();
-                  }),
-                ),
-                SizedBox(height: 26,),
-                Center(
-                  child: GestureDetector(
-                    child: RichText(text: TextSpan(text: 'Already Registered ?',
-                      style: TextStyle(color: Colors.black87, fontSize: 19),
-                      children: <TextSpan>[
-                        TextSpan(text: ' Login', style: TextStyle(color: Colors.black87,
-                            fontSize: 19, fontWeight: FontWeight.w600)),
-                      ]),),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
                   ),
-                ),
-                SizedBox(height: 26,),
-              ],
+                  SizedBox(height: 26,),
+                  Center(
+                    child: GestureDetector(
+                      child: RichText(text: TextSpan(text: 'Already Registered ? ',
+                        style: TextStyle(color: Colors.black87, fontSize: 12),
+                        children: <TextSpan>[
+                          TextSpan(text: 'Login', style: TextStyle(color: AppTheme.accentColor,
+                              fontSize: 14, fontWeight: FontWeight.w600)),
+                        ]),),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 26,),
+                ],
+              ),
             ),
           ),
         ),
@@ -257,337 +262,323 @@ class _SignUpPageState extends State<SignUpPage>
   }
 
   Widget _userSignUpView() {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [BoxShadow(
-          color: Colors.black87.withOpacity(.08),
-          blurRadius: 16, offset: Offset(6, 6),
-        )],
-      ),
-      child: Theme(
-        data: ThemeData(primaryColor: Colors.black87,),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Account Type', style: TextStyle(fontSize: 16),),
-                CupertinoSlidingSegmentedControl(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                  children: _titles,
-                  groupValue: _sharedValue,
-                  onValueChanged: (int v) {
-                    setState(() {
-                      _sharedValue = v;
-                      _autoValidateMode = AutovalidateMode.disabled;
-                      _formKey.currentState.reset();
-                    });
-                    if (_sharedValue == 0) {
-                      _categoryController.clear();
-                      _descriptionController.clear();
-                      _altMobileController.clear();
-                      _addressController.clear();
-                      _pincodeController.clear();
-                    }
-                  },),
-              ],
-            ),
-            TextFormField(
-              controller: _userNameController,
-              validator: validateRequired,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                icon: Icon(Icons.person),
-                labelText: 'Username',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-              ),
-            ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _nameController,
-              validator: validateName,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                icon: Icon(Icons.person),
-                labelText: 'Full Name',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+    return Theme(
+      data: ThemeData(primaryColor: Colors.black87,),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text('Account Type', style: TextStyle(fontSize: 16),),
+              CupertinoSlidingSegmentedControl(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                children: _titles,
+                groupValue: _sharedValue,
+                backgroundColor: AppTheme.secondary,
+                thumbColor: AppTheme.accentColor,
+                onValueChanged: (int v) {
+                  setState(() {
+                    _sharedValue = v;
+                    _autoValidateMode = AutovalidateMode.disabled;
+                    _formKey.currentState.reset();
+                  });
+                  if (_sharedValue == 0) {
+                    _categoryController.clear();
+                    _descriptionController.clear();
+                    _altMobileController.clear();
+                    _addressController.clear();
+                    _pincodeController.clear();
+                  }
+                },),
+            ],
+          ),
+          TextFormField(
+            controller: _userNameController,
+            validator: validateRequired,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              icon: Icon(Icons.person,color: AppTheme.accentColor,),
+              labelText: 'Username',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppTheme.accentColor,),
               ),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _emailController,
-              validator: validateEmail,
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                icon: Icon(Icons.alternate_email),
-                labelText: 'Email Address',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _nameController,
+            validator: validateName,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              icon: Icon(Icons.person,color: AppTheme.accentColor,),
+              labelText: 'Full Name',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
-              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _mobileController,
-              validator: validateMobile,
-              keyboardType: TextInputType.phone,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10),
-              ],
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                icon: Icon(Icons.phone),
-                labelText: 'Mobile Number',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _emailController,
+            validator: validateEmail,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              icon: Icon(Icons.alternate_email,color: AppTheme.accentColor,),
+              labelText: 'Email Address',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
-              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _interestController,
-              validator: validateRequired,
-              keyboardType: TextInputType.phone,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                icon: Icon(Icons.category),
-                labelText: 'Interests',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _mobileController,
+            validator: validateMobile,
+            keyboardType: TextInputType.phone,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(10),
+            ],
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              icon: Icon(Icons.phone,color: AppTheme.accentColor,),
+              labelText: 'Mobile Number',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
-              ),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                Navigator.push(context, MaterialPageRoute(builder: (c) =>
-                    InterestSelectionPage())).then((value) {
-                  _categoryIds = value['ids'];
-                  _interestController.text = value['name'];
-                  print('categ ids $_categoryIds and name ${value['name']}');
-                });
-              },
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _stateController,
-              validator: validateRequired,
-              style: TextStyle(color: Colors.black87),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                _cityController.clear();
-                _showStateList();
-              },
-              decoration: InputDecoration(
-                icon: Icon(Icons.location_on),
-                labelText: 'Select State',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _interestController,
+            validator: validateRequired,
+            keyboardType: TextInputType.phone,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              icon: Icon(Icons.category,color: AppTheme.accentColor,),
+              labelText: 'Interests',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
-              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _cityController,
-              validator: validateRequired,
-              style: TextStyle(color: Colors.black87),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                if (_stateId == null) {
-                  Alerts.showAlert(context, 'Alert', 'Please select state first.');
-                } else {
-                  _showCityList();
-                }
-              },
-              decoration: InputDecoration(
-                icon: Icon(Icons.my_location),
-                labelText: 'Select City',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+            ),
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              Navigator.push(context, MaterialPageRoute(builder: (c) =>
+                  InterestSelectionPage())).then((value) {
+                _categoryIds = value['ids'];
+                _interestController.text = value['name'];
+                print('categ ids $_categoryIds and name ${value['name']}');
+              });
+            },
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _stateController,
+            validator: validateRequired,
+            style: TextStyle(color: Colors.black87),
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              _cityController.clear();
+              _showStateList();
+            },
+            decoration: InputDecoration(
+              icon: Icon(Icons.location_on,color: AppTheme.accentColor,),
+              labelText: 'Select State',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
-              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
             ),
-            SizedBox(height: 10,),
-          ],
-        ),
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _cityController,
+            validator: validateRequired,
+            style: TextStyle(color: Colors.black87),
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              if (_stateId == null) {
+                Alerts.showAlert(context, 'Alert', 'Please select state first.');
+              } else {
+                _showCityList();
+              }
+            },
+            decoration: InputDecoration(
+              icon: Icon(Icons.my_location,color: AppTheme.accentColor,),
+              labelText: 'Select City',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor,),
+            ),
+            ),
+          ),
+          SizedBox(height: 10,),
+        ],
       ),
     );
   }
 
   _businessSignUpView() {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [BoxShadow(
-          color: Colors.black87.withOpacity(.08),
-          blurRadius: 16, offset: Offset(6, 6),
-        )],
-      ),
-      child: Theme(
-        data: ThemeData(primaryColor: Colors.black87,),
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Row(
-                children: <Widget>[
-                  Icon(Icons.arrow_back_ios, size: 20,),
-                  Text('Back', style: TextStyle(color: Colors.black87, fontSize: 18,
-                      fontWeight: FontWeight.w500),),
-                ],
-              ),
-              onTap: () {
-                _flip(false);
-              },
-            ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _categoryController,
-              validator: _sharedValue == 1 ? validateRequired : null,
-              style: TextStyle(color: Colors.black87),
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                _showCategoriesList(context);
-              },
-              decoration: InputDecoration(
-                labelText: 'Select Category',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-              ),
-            ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _descriptionController,
-              validator: _sharedValue == 1 ? validateRequired : null,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                labelText: 'Add Description',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-              ),
-            ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _altMobileController,
-              validator: _sharedValue == 1 ? validateAlternateMobile : null,
-              keyboardType: TextInputType.phone,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10),
+    return Theme(
+      data: ThemeData(primaryColor: Colors.black87,),
+      child: Column(
+        children: <Widget>[
+          GestureDetector(
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.arrow_back_ios, size: 20,),
+                Text('Back', style: TextStyle(color: Colors.black87, fontSize: 18,
+                    fontWeight: FontWeight.w500),),
               ],
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                labelText: 'Alternate Mobile',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-              ),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _addressController,
-              validator: _sharedValue == 1 ? validateRequired : null,
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                labelText: 'Add Address',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+            onTap: () {
+              _flip(false);
+            },
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _categoryController,
+            validator: _sharedValue == 1 ? validateRequired : null,
+            style: TextStyle(color: Colors.black87),
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              _showCategoriesList(context);
+            },
+            decoration: InputDecoration(
+              labelText: 'Select Category',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
               ),
             ),
-            SizedBox(height: 8,),
-            TextFormField(
-              controller: _pincodeController,
-              validator: _sharedValue == 1 ? validatePincode : null,
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(6),
-              ],
-              style: TextStyle(color: Colors.black87),
-              decoration: InputDecoration(
-                labelText: 'Pincode',
-                labelStyle: TextStyle(color: Colors.black87),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black87),
-                ),focusedBorder: UnderlineInputBorder(
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _descriptionController,
+            validator: _sharedValue == 1 ? validateRequired : null,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              labelText: 'Add Description',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black87),
               ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppTheme.accentColor),
               ),
             ),
-            SizedBox(height: 10,),
-          ],
-        ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _altMobileController,
+            validator: _sharedValue == 1 ? validateAlternateMobile : null,
+            keyboardType: TextInputType.phone,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(10),
+            ],
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              labelText: 'Alternate Mobile',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+    borderSide: BorderSide(color: AppTheme.accentColor),
+    ),
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _addressController,
+            validator: _sharedValue == 1 ? validateRequired : null,
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              labelText: 'Add Address',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor),
+            ),
+            ),
+          ),
+          SizedBox(height: 8,),
+          TextFormField(
+            controller: _pincodeController,
+            validator: _sharedValue == 1 ? validatePincode : null,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(6),
+            ],
+            style: TextStyle(color: Colors.black87),
+            decoration: InputDecoration(
+              labelText: 'Pincode',
+              labelStyle: TextStyle(color: Colors.black87),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black87),
+              ),focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppTheme.accentColor),
+            ),
+            ),
+          ),
+          SizedBox(height: 10,),
+        ],
       ),
     );
   }
@@ -637,9 +628,7 @@ class _SignUpPageState extends State<SignUpPage>
           future: _getStates(),
           builder: (c, s) {
             if (s.connectionState != ConnectionState.done) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: Image.asset("assets/loading.gif",height: 60,));
             } else {
               return SafeArea(
                 child: Padding(padding: const EdgeInsets.only(top: 12, left: 16),
@@ -684,9 +673,7 @@ class _SignUpPageState extends State<SignUpPage>
           future: _getCities(),
           builder: (c, s) {
             if (s.connectionState != ConnectionState.done) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: Image.asset("assets/loading.gif",height: 60,));
             } else {
               return SafeArea(
                 child: Padding(padding: const EdgeInsets.only(top: 12, left: 16),

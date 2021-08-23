@@ -13,6 +13,8 @@ import 'package:loccon/pages/feed/home_page.dart';
 import 'package:loccon/pages/feed/new_create_page.dart';
 import 'package:loccon/pages/feed/new_post.dart';
 import 'package:loccon/pages/login/onboard_page.dart';
+import 'package:loccon/pages/login/signup_page.dart';
+import 'package:loccon/pages/profile/edit_profile_page.dart';
 import 'package:loccon/pages/profile/profile_page.dart';
 import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
