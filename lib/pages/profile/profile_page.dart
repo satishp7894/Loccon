@@ -293,41 +293,42 @@ class _ProfilePageState extends State<ProfilePage>
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       children: <Widget>[
-        Container(
-          height: 170,
-          child: UserAccountsDrawerHeader(
-            currentAccountPicture: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(70),
-                border: Border.all(color: AppTheme.accentColor)
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(70),
-                child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/avatar.png' ?? " ",
-                    height: 80,
-                    width: 80,
-                    fit: BoxFit.contain,
-                    image: Connection.profilePicPath + '$profilePic') ?? " ",
-              ),
+        UserAccountsDrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: AppTheme.accentColor)
+          ),
+          currentAccountPicture: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(70),
+              border: Border.all(color: AppTheme.accentColor)
             ),
-            accountName: Text(
-              '$userName',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(70),
+              child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/avatar.png' ?? " ",
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.contain,
+                  image: Connection.profilePicPath + '$profilePic') ?? " ",
+            ),
+          ),
+          accountName: Text(
+            '$name',
+            style: TextStyle(
+                color: AppTheme.accentColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w600),
+            textAlign: TextAlign.left,
+          ),
+          accountEmail: Expanded(
+            child: Text(
+              '$email - $mobile',
               style: TextStyle(
-                  color: AppTheme.accentColor,
-                  fontSize: 18,
+                  color: Colors.grey,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600),
               textAlign: TextAlign.left,
-            ),
-            accountEmail: Expanded(
-              child: Text(
-                '$email - $mobile',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600),
-                textAlign: TextAlign.left,
-              ),
             ),
           ),
         ),

@@ -312,8 +312,10 @@ class _NewPostState extends State<NewPost> {
             _showImagesGrid ? _imagesGridView() : _youtubeLinkView(),
             Spacer(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(onPressed: (){
+                FloatingActionButton.extended(onPressed: (){
                   if (_youtubeUrlController.text.isNotEmpty) {
                     setState(() {
                       _showImagesGrid = false;
@@ -324,11 +326,8 @@ class _NewPostState extends State<NewPost> {
                       _pickImages();
                     });
                   }
-
-
-                }, icon: Icon(Icons.photo,color: Colors.blueGrey,size: 30,)),
-                IconButton(onPressed: (){
-
+                }, label: Text("Upload Images"),icon: Icon(Icons.photo),backgroundColor: AppTheme.accentColor,),
+                FloatingActionButton.extended(onPressed: (){
                   if (images == null || images.isEmpty) {
                     setState(() {
                       _showImagesGrid = false;
@@ -338,9 +337,7 @@ class _NewPostState extends State<NewPost> {
                       _showImagesGrid = true;
                     });
                   }
-
-                }, icon: Icon(Icons.video_call_sharp,color: Colors.blueGrey,size: 30,)),
-
+                }, label: Text("Upload Video"),icon: Icon(Icons.video_call),backgroundColor: AppTheme.secondary,),
               ],
             )
           ],

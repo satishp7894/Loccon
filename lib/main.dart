@@ -51,9 +51,15 @@ class MyApp extends StatelessWidget {
       ],
       theme: ThemeData(
         fontFamily: "Rubik",
-        primaryColor: Colors.white,
-        accentColor: AppTheme.accentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: AppBarTheme(
+          backgroundColor:Colors.white,
+          iconTheme: IconThemeData(
+            color: AppTheme.accentColor
+          ),
+          titleTextStyle: TextStyle(color: AppTheme.accentColor),
+        ),
+
       ),
       //home: prefs.getBool('onboard') == true ? Home() : IntroScreen(),
       home: FutureBuilder(

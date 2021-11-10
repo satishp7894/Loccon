@@ -54,6 +54,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    print(widget.userDp);
     FirestoreDatabase.addActiveStatus(widget.chatRoomId,
         [widget.myName, widget.userName], widget.myId).then((_) {
       FirestoreDatabase.removeUnread(widget.chatRoomId, widget.myId);
