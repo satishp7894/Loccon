@@ -48,7 +48,7 @@ class _CommentsPageState extends State<CommentsPage> {
       child: Scaffold(
         appBar: AppBar(elevation: 1,
           centerTitle: false,
-          title: Text('Comments'),
+          title: Text('Comments',style: TextStyle(fontSize: 18),),
         ),
         body: SafeArea(
           child: Column(

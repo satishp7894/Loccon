@@ -37,7 +37,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("Profile Pic"+profilePic == null ? "":profilePic);
     _userStoredDetails();
   }
 

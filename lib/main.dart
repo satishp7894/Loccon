@@ -18,7 +18,6 @@ import 'package:loccon/pages/profile/edit_profile_page.dart';
 import 'package:loccon/pages/profile/profile_page.dart';
 import 'package:loccon/utils/alerts.dart';
 import 'package:loccon/utils/apptheme.dart';
-import 'package:loccon/utils/connection.dart';
 import 'package:loccon/widgets/unread_message_count_bubble.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -235,7 +234,7 @@ class _HomeState extends State<Home> {
           return Future.value(false);
         }
       },
-      child: Scaffold(
+      child:   Scaffold(
          // body: _pageOptions[_selectedIndex],
         body: IndexedStack(
           index: _selectedIndex,
