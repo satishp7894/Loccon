@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Loccon',
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
 

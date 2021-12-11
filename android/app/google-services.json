@@ -47,6 +47,51 @@
           }
         },
         {
+          "client_id": "1073761343021-s25r8dd9bkf0vcncgn5qhgsuufcrn8e1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proactii.loccon",
+            "certificate_hash": "513684a7b163f8068ead9c912eef73f9d5c89426"
+          }
+        },
+        {
+          "client_id": "1073761343021-3mc1edb4r5sspj8d5r522hno83n2m4q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqHl95A4MI-U344kwKlJOc0RLGbg-_QnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073761343021-3mc1edb4r5sspj8d5r522hno83n2m4q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073761343021:android:7d4d423214da56f5f04aa4",
+        "android_client_info": {
+          "package_name": "proactii.app.loccon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073761343021-hk2umiuovvv5ojqot7ck67e76icmist1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "proactii.app.loccon",
+            "certificate_hash": "513684a7b163f8068ead9c912eef73f9d5c89426"
+          }
+        },
+        {
           "client_id": "1073761343021-3mc1edb4r5sspj8d5r522hno83n2m4q0.apps.googleusercontent.com",
           "client_type": 3
         }
