@@ -24,7 +24,8 @@ class OTPLoginPage extends StatefulWidget {
 
 class _OTPLoginPageState extends State<OTPLoginPage> with Validator {
   TextEditingController _otpController = TextEditingController();
-  bool _autoValidate = false;
+  // bool _autoValidate = false;
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _verifyOTP() async {
@@ -38,7 +39,8 @@ class _OTPLoginPageState extends State<OTPLoginPage> with Validator {
       });
     } else {
       setState(() {
-        _autoValidate = true;
+        // _autoValidate = true;
+        _autoValidateMode = AutovalidateMode.always;
       });
     }
   }
@@ -133,7 +135,7 @@ class _OTPLoginPageState extends State<OTPLoginPage> with Validator {
               ),
               SizedBox(height: 15,),
               Theme(data: ThemeData(primaryColor: Colors.black87,),
-                child: Form(autovalidate: _autoValidate, key: _formKey,
+                child: Form(autovalidateMode: _autoValidateMode, key: _formKey,
                   child: TextFormField(
                     cursorColor: Colors.black,
                     controller: _otpController,
